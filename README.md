@@ -43,7 +43,7 @@ bower install
 
 ### Roadmap
 
-View the project roadmap [here](http://github.com/Next-Mars/curates/issues)
+View the project roadmap [here](http://github.com/Next-Mars/curates/milestones)
 
 
 ## Contributing
