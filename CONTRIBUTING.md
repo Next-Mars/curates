@@ -1,5 +1,13 @@
 # Contributing
 
+Table of Contents
+
+1. [General Workflow](#General-Workflow)
+1. [Detailed Workflow](#Detailed-Workflow)
+1. [Guidelines](#Guidelines)
+1. [Checklist](#Checklist)
+
+
 ## General Workflow
 
 1. Fork the repo
