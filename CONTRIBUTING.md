@@ -2,10 +2,10 @@
 
 Table of Contents
 
-1. [General Workflow](#General-Workflow)
-1. [Detailed Workflow](#Detailed-Workflow)
-1. [Guidelines](#Guidelines)
-1. [Checklist](#Checklist)
+1. [General Workflow](#general-workflow)
+1. [Detailed Workflow](#detailed-workflow)
+1. [Guidelines](#guidelines)
+1. [Checklist](#checklist)
 
 
 ## General Workflow
