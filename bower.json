@@ -1,0 +1,18 @@
+{
+  "name": "curates",
+  "version": "0.0.0",
+  "homepage": "https://github.com/Next-Mars/curates",
+  "authors": [
+    "Next-Mars"
+  ],
+  "description": "An to build and distribute Curated Collections of Information",
+  "main": "server.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

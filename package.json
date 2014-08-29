@@ -1,0 +1,23 @@
+{
+  "name": "curates",
+  "version": "0.0.0",
+  "description": "An to build and distribute Curated Collections of Information",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Next-Mars/curates"
+  },
+  "author": "Next-Mars",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Next-Mars/curates/issues"
+  },
+  "homepage": "https://github.com/Next-Mars/curates",
+  "dependencies": {
+    "grunt": "^0.4.5",
+    "gulp": "^3.8.7"
+  }
+}
