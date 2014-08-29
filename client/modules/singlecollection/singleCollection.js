@@ -4,7 +4,7 @@ angular.module('curates.singleCollection', [])
   $stateProvider
   .state('singleCollection', {
     url: '/{collectionId:[0-9]{1,8}}',
-    templateUrl: 'modules/singlecollection/singleCollection.html'
+    templateUrl: 'modules/singleCollection/singleCollection.html'
   })
 })
 

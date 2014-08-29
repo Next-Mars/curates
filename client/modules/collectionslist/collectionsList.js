@@ -4,11 +4,11 @@ angular.module('curates.collectionslist', [])
   $stateProvider
   .state('collectionsList', {
     url: '/',
-    templateUrl: 'modules/collectionslist/collectionsList.html'
+    templateUrl: 'modules/collectionsList/collectionsList.html'
   });
 
 })
 
-.controller('CollectionsListController', function($scope) {
+.controller('collectionsListController', function($scope) {
   $scope.ready = 'Hooray!';
 })
