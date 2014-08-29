@@ -1,0 +1,10 @@
+<div class="userManagement">
+  <form id="signin" ng-if="!user.loggedIn" ng-submit="login(name)">
+    <input type="text" name="username" ng-model="name"></input>
+    <button type="submit" name="submit">Log in</button>
+  </form>
+  <form id="logout" ng-if="user.loggedIn" ng-submit="logout()">
+    Welcome {{ user.name }}!!
+    <button type="submit" name="submit">Log Out</button>
+  </form>
+</div>

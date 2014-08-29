@@ -1,4 +1,4 @@
-angular.module('curates.editCollection')
+angular.module('curates.editCollection', [])
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
