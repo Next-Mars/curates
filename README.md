@@ -1,12 +1,13 @@
-[![Stories in Ready](https://badge.waffle.io/Next-Mars/curates.png?label=ready&title=Ready)](https://waffle.io/Next-Mars/curates)
-Curates.io
+## Curates.io ##
+[![Stories in Ready](https://badge.waffle.io/Next-Mars/curates.png?label=ready&title=Waffle.io Task Board)](https://waffle.io/Next-Mars/curates)
 
 Revolutionary way to share collections of web content.
 
 Team
-  - Product Owner: teamMember
-  - Scrum Master: teamMember
-  - Development Team Members: teamMember, teamMember
+  - Product Owner: Jack Lu (JackTanRoo)
+  - Scrum Master: Andrew Brassington (jabbrass)
+  - Bo Liu (liubolightning)
+  - Daniel Streit (danielstreit)
 
 Table of Contents
 
