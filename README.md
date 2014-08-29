@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/Next-Mars/curates.png?label=ready&title=Ready)](https://waffle.io/Next-Mars/curates)
 Curates.io
 
 Revolutionary way to share collections of web content.
