@@ -1,3 +1,3 @@
 <div ng-controller="collectionsListController">
-  <span ng-repeat="item in listData">{{item.title}}</span>
+  <collection-meta ng-repeat="collection in listData" collection="collection" />
 </div>
