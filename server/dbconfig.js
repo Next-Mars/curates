@@ -23,6 +23,7 @@ db.knex.schema.hasTable('users').then(function (exists) {
       user.string('github', 64);
       user.string('email', 64);
       user.string('password_hash', 255);
+      user.timestamps();
     }).then(function (table) {
       console.log('Created User Table', table);
     });
@@ -36,8 +37,10 @@ db.knex.schema.hasTable('collections').then(function (exists) {
       collection.increments('c_id').primary();
       collection.integer('u_id');
       collection.string('title', 255);
+      collection.string('collection_url', 255)
       collection.string('description', 255);
       collection.integer('stars');
+      collection.timestamps();
     }).then(function (table) {
       console.log('Created Collections Table', table);
     });
@@ -49,9 +52,11 @@ db.knex.schema.hasTable('links').then(function (exists) {
     db.knex.schema.createTable('links', function (link) {
       link.increments('l_id').primary();
       link.integer('c_id');
-      link.string('url', 255);
+      link.string('link_url', 255);
+      link.string('link_title', 255);
       link.string('description', 255);
       link.integer('click_count');
+      link.timestamps();
     }).then(function (table) {
       console.log('Created Links Table', table);
     });
