@@ -3,7 +3,7 @@ angular.module('curates.editCollection', [])
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
   .state('editCollection', {
-  	url: '/{collectionId:[0-9]{1,8}}/edit',
+  	url: '/{param}/edit',
   	templateUrl: 'modules/editCollection/editCollection.html'
   })
 })
