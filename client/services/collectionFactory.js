@@ -5,9 +5,6 @@ angular.module('curates.collectionFactory', [])
 
 
   // MOCK DATA
-  var collections = {
-    1: collection1
-  };
 
   var collection1 = {
     id: 1,
@@ -59,9 +56,13 @@ angular.module('curates.collectionFactory', [])
       }
     ]
   };
+  
+  var collections = {
+    'Jack/AngularTutorials': collection1
+  };
 
-  var getCollection = function(id) {
-    return collections[id];
+  var getCollection = function(url) {
+    return collections[url];
   };
 
   var getListData = function() {

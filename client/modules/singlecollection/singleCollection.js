@@ -8,7 +8,8 @@ angular.module('curates.singleCollection', [])
   })
 })
 
-.controller('singleCollectionController', function($scope, $stateParams) {
-  $scope.user = $stateParams.user;
-  $scope.collection = $stateParams.collection;
+.controller('singleCollectionController', function($scope, $stateParams, collectionFactory) {
+  var url = $stateParams.user + '/' + $stateParams.collection;
+  // if the url doesn't exist, take the user somewhere else?
+  $scope.collection = collectionFactory.getCollection(url);
 });
