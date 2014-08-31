@@ -2,12 +2,15 @@ angular.module('curates.personalCollectionList', [])
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
-  .state('personalCollectionList', {
-    url: '/{personalCollectionsListId:[0-9]{1,8}}',
+  .state('myCollections', {
+    url: '/myCollections',
     templateUrl: 'modules/personalCollectionsList/personalCollectionsList.html'
-  })
+  });
 })
 
-.controller('personalCollectionsList', function($scope, $stateParams) {
-  $scope.collectionlist = $stateParams.personalCollectionsListId;
+.controller('personalCollectionsList', function($scope, $stateParams, collectionFactory, userManagement) {
+  var user = userManagement.user;
+  if (user.loggedIn) {
+    $scope.collections = collectionFactory.getUserCollections(user.name);
+  }
 });

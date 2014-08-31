@@ -56,7 +56,7 @@ angular.module('curates.collectionFactory', [])
       }
     ]
   };
-  
+
   var collections = {
     'Jack/AngularTutorials': collection1
   };
@@ -69,9 +69,17 @@ angular.module('curates.collectionFactory', [])
     return listData;
   };
 
+  var getUserCollections = function(user) {
+
+    return _.filter(collections, function(item) {
+      return item.user === user;
+    });
+  };
+
   return {
     getCollection: getCollection,
-    getListData: getListData
+    getListData: getListData,
+    getUserCollections: getUserCollections
   };
 
 })
