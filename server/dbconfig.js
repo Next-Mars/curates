@@ -53,7 +53,7 @@ db.knex.schema.hasTable('links').then(function(exists) {
       link.string('link_url', 255);
       link.string('link_title', 255);
       link.string('description', 255);
-      link.integer('click_count');
+      link.integer('click_count').defaultTo(0);
       link.timestamps();
     }).then(function(table) {
       console.log('Created Links Table', table);

@@ -81,17 +81,19 @@ app.post('/collection', function(req, res) {
               var c_id = collection.get('id');
               console.log("this is the c_id: ", c_id);
               linksToBeSaved.forEach(function(linkObj) {
-                new Link({
-                  c_id: c_id,
-                  link_url: linkObj.url,
-                  link_title: linkObj.title,
-                  description: linkObj.description,
-                  click_count: 0
-                })
-                  .save()
-                  .then(function(link) {
-                    console.log("successfully saved links: ");
+                dbUtils.linkExists(linkObj, function(link_id) {
+                  new Link({
+                    id: link_id,
+                    c_id: c_id,
+                    link_url: linkObj.url,
+                    link_title: linkObj.title,
+                    description: linkObj.description
                   })
+                    .save()
+                    .then(function(link) {
+                      console.log("successfully saved links: ");
+                    })
+                })
               })
             })
         });

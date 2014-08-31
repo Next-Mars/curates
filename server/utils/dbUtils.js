@@ -17,19 +17,29 @@ exports.collectionExists = function(collection, callback) {
       console.log("I am the fetchedCollection: ", fetchedCollection);
       if (fetchedCollection) {
         var collection_id = fetchedCollection.get('id');
-
-        // var options = {
-        //   method: 'update'
-        // }
       } else {
         var collection_id = null;
-        // var options = {
-        //   method: 'save'
-        // }
       }
-      // callback(options);
       callback(collection_id);
     });
 }
 
 // check links
+
+exports.linkExists = function(link, callback) {
+  var url = link.url;
+
+  new Link({
+    link_url: url
+  })
+    .fetch()
+    .then(function(fetchedLink) {
+      console.log("I am the fetchedLink: ", fetchedLink);
+      if (fetchedLink) {
+        var link_id = fetchedLink.get('id');
+      } else {
+        var link_id = null;
+      }
+      callback(link_id);
+    });
+}
