@@ -9,12 +9,13 @@
   <script src="app.js"></script>
   <script src="services/userManagement.js"></script>
   <script src="directives/userManagement.js"></script>
-  <script type="text/javascript" scr="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
   <h1>Curates!</h1>
   <div ng-controller="userMangamentController">
     <user-management />
   </div>
   <div ui-view></div>
+
   <script type="text/javascript">
   var url = "http://localhost:3000/collection"
   var data = {
@@ -30,10 +31,11 @@
   };
 
   $(document).ready(function(){
+    console.log("doc is ready");
     $.ajax({
       type: "POST",
       url: url,
-      data: ,
+      data: JSON.stringify(data),
       success: function(data){
         console.log("successfully posted: ", data)
       },

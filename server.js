@@ -2,6 +2,7 @@ var express = require('express');
 var session = require('express-session');
 
 var bodyParser = require('body-parser');
+var dbUtils = require('./server/utils/dbUtils');
 
 var db = require('./server/dbconfig');
 var User = require('./server/models/user');
@@ -40,7 +41,8 @@ app.post('/collection', function(req, res) {
 
   var data = req.body;
 
-  var collectionToBeSaved = {
+  var collectionToBeSavedOrUpdated = {
+    c_id: 1,
     u_id: 0,
     title: data.title,
     collection_url: data.url,
@@ -55,27 +57,44 @@ app.post('/collection', function(req, res) {
   })
     .fetch()
     .then(function(user) {
+      // if user doesn't exists
+
+      // if user exists
       var u_id = user.get('u_id');
-      collectionToBeSaved.u_id = u_id;
-      new Collection(collectionToBeSaved)
-        .save()
-        .then(function(collection) {
-          console.log("Saved collection: ", collection);
-          var c_id = collection.get('id');
-          console.log("this is the c_id: ", c_id);
-          linksToBeSaved.forEach(function(linkObj) {
-            new Link({
-              c_id: c_id,
-              link_url: linkObj.url,
-              link_title: linkObj.title,
-              description: linkObj.description,
-              click_count: 0
-            })
-              .save()
-              .then(function(link) {
-                // console.log("successfully saved links: ", link)
+      collectionToBeSavedOrUpdated.u_id = u_id;
+
+      dbUtils.collectionExists(collectionToBeSavedOrUpdated,
+        function(c_id) {
+          // var params;
+          // if (options.method === 'save') {
+          //   params = null;
+          // } else if (options.method === 'update') {
+          //   params = {
+          //     collection_url: collectionToBeSavedOrUpdated.collection_url
+          //   }
+          // }
+          collectionToBeSavedOrUpdated.id = c_id;
+          console.log("i am the collection: ", collectionToBeSavedOrUpdated);
+          new Collection(collectionToBeSavedOrUpdated)
+            .save()
+            .then(function(collection) {
+              console.log("Saved collection: ", collection);
+              var c_id = collection.get('id');
+              console.log("this is the c_id: ", c_id);
+              linksToBeSaved.forEach(function(linkObj) {
+                new Link({
+                  c_id: c_id,
+                  link_url: linkObj.url,
+                  link_title: linkObj.title,
+                  description: linkObj.description,
+                  click_count: 0
+                })
+                  .save()
+                  .then(function(link) {
+                    console.log("successfully saved links: ");
+                  })
               })
-          })
+            })
         });
     });
 
