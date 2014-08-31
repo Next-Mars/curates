@@ -70,16 +70,20 @@ angular.module('curates.collectionFactory', [])
   };
 
   var getUserCollections = function(user) {
-
     return _.filter(collections, function(item) {
       return item.user === user;
     });
   };
 
+  var updateCollection = function(collection) {
+    collections[collection.url] = collection;
+  }
+
   return {
     getCollection: getCollection,
     getListData: getListData,
-    getUserCollections: getUserCollections
+    getUserCollections: getUserCollections,
+    updateCollection: updateCollection
   };
 
 })
