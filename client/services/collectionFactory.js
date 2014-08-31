@@ -77,6 +77,10 @@ angular.module('curates.collectionFactory', [])
 
   var updateCollection = function(collection) {
     collections[collection.url] = collection;
+  };
+
+  var createCollection = function(collection) {
+    collections[collection.url] = collection;
   }
 
   return {

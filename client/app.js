@@ -5,7 +5,8 @@ angular.module('curates', [
   'curates.editCollection',
   'curates.services',
   'curates.collectionFactory',
-  'curates.personalCollectionList'
+  'curates.personalCollectionList',
+  'curates.createCollection'
 ])
 
 .config(function($stateProvider, $urlRouterProvider) {

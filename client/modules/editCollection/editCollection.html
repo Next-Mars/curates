@@ -20,7 +20,11 @@
         <label>Description: 
           <input type="text" ng-model="collection.links[$index].description" />
         </label>
+        <label>Remove:
+          <input type="checkbox" ng-click="toggleRemove($index)">
+        </label>
       </div>
+      <button type="button" ng-click="addLink()">Add Link</button>
       <button type="submit">Sumbit Changes</button>
     </form>
 
