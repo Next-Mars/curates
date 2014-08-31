@@ -1,15 +1,22 @@
 <html>
 <body ng-app="curates">
+  <script src="lib/underscore/underscore.js"></script>
   <script src="lib/angular/angular.js"></script>
   <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
   <script src="modules/singleCollection/singleCollection.js"></script>
-  <script src="modules/collectionsList/collectionsList.js"></script>
   <script src="modules/personalCollectionsList/personalCollectionsList.js"></script>
+  <script src="modules/collectionsList/collectionsList.js"></script>
   <script src="modules/editCollection/editCollection.js"></script>
   <script src="app.js"></script>
   <script src="services/userManagement.js"></script>
   <script src="directives/userManagement.js"></script>
-  <h1>Curates!</h1>
+  <script src="services/collectionFactory.js"></script>
+  <script src="directives/collectionMeta.js"></script>
+  <script src="modules/createCollection/createCollection.js"></script>
+
+
+
+  <h1><a ng-href='/'>Curates!</a></h1>
   <div ng-controller="userMangamentController">
     <user-management />
   </div>

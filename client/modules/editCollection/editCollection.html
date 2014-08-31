@@ -1,3 +1,32 @@
-<div ng-controller="editCollection">
-  {{ ready }}
+<div ng-controller="editCollectionController">
+  <h2>{{ collection.title }}<small> by {{ collection.user }}</h2>
+  <div class="wrongUser" ng-if="!editable">
+    <h2>You cannot edit this, its not your collection. Fork it instead</h2>
+  </div>
+  <div class="editCollection" ng-if="editable" ng-submit="submitCollectionEdit()">
+    <form name="edit" class="editCollectionForm">
+      <label>Description: 
+        <input name="description" type="text" ng-model="collection.description" />
+      </label>
+
+      Links:
+      <div class="editLink" ng-repeat="link in collection.links">
+        <label>Title:
+          <input type="text" ng-model="collection.links[$index].title" />
+        </label>
+        <label>Url:
+          <input type="url" ng-model="collection.links[$index].url" />
+        </label>
+        <label>Description: 
+          <input type="text" ng-model="collection.links[$index].description" />
+        </label>
+        <label>Remove:
+          <input type="checkbox" ng-click="toggleRemove($index)">
+        </label>
+      </div>
+      <button type="button" ng-click="addLink()">Add Link</button>
+      <button type="submit">Sumbit Changes</button>
+    </form>
+
+  </div>
 </div>
