@@ -42,7 +42,6 @@ app.post('/collection', function(req, res) {
   var data = req.body;
 
   var collectionToBeSavedOrUpdated = {
-    c_id: 1,
     u_id: 0,
     title: data.title,
     collection_url: data.url,
@@ -60,11 +59,11 @@ app.post('/collection', function(req, res) {
       // if user doesn't exists
 
       // if user exists
-      var u_id = user.get('u_id');
+      var u_id = user.get('id');
       collectionToBeSavedOrUpdated.u_id = u_id;
 
       dbUtils.collectionExists(collectionToBeSavedOrUpdated,
-        function(c_id) {
+        function(collection_id) {
           // var params;
           // if (options.method === 'save') {
           //   params = null;
@@ -73,7 +72,7 @@ app.post('/collection', function(req, res) {
           //     collection_url: collectionToBeSavedOrUpdated.collection_url
           //   }
           // }
-          collectionToBeSavedOrUpdated.id = c_id;
+          collectionToBeSavedOrUpdated.id = collection_id;
           console.log("i am the collection: ", collectionToBeSavedOrUpdated);
           new Collection(collectionToBeSavedOrUpdated)
             .save()

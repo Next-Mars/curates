@@ -16,19 +16,19 @@ exports.collectionExists = function(collection, callback) {
     .then(function(fetchedCollection) {
       console.log("I am the fetchedCollection: ", fetchedCollection);
       if (fetchedCollection) {
-        var c_id = fetchedCollection.get('c_id');
+        var collection_id = fetchedCollection.get('id');
 
         // var options = {
         //   method: 'update'
         // }
       } else {
-        var c_id = null;
+        var collection_id = null;
         // var options = {
         //   method: 'save'
         // }
       }
       // callback(options);
-      callback(c_id);
+      callback(collection_id);
     });
 }
 

@@ -17,7 +17,7 @@ var db = require('bookshelf')(knex);
 db.knex.schema.hasTable('users').then(function(exists) {
   if (!exists) {
     db.knex.schema.createTable('users', function(user) {
-      user.increments('u_id').primary();
+      user.increments('id').primary();
       user.string('username', 64);
       user.string('github', 64);
       user.string('email', 64);
@@ -32,8 +32,8 @@ db.knex.schema.hasTable('users').then(function(exists) {
 db.knex.schema.hasTable('collections').then(function(exists) {
   if (!exists) {
     db.knex.schema.createTable('collections', function(collection) {
-      collection.increments('c_id').primary();
-      collection.integer('u_id');
+      collection.increments('id').primary();
+      collection.integer('u_id'); //references users.id
       collection.string('title', 255);
       collection.string('collection_url', 255).unique();
       collection.string('description', 255);
@@ -48,8 +48,8 @@ db.knex.schema.hasTable('collections').then(function(exists) {
 db.knex.schema.hasTable('links').then(function(exists) {
   if (!exists) {
     db.knex.schema.createTable('links', function(link) {
-      link.increments('l_id').primary();
-      link.integer('c_id');
+      link.increments('id').primary();
+      link.integer('c_id'); //references collections.id
       link.string('link_url', 255);
       link.string('link_title', 255);
       link.string('description', 255);
