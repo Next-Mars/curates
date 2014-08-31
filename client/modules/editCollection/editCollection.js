@@ -8,7 +8,7 @@ angular.module('curates.editCollection', [])
   })
 })
 
-.controller('editCollectionController', function($scope, $stateParams, userManagement, collectionFactory) {
+.controller('editCollectionController', function($scope, $stateParams, $state, userManagement, collectionFactory) {
   var url = $stateParams.user + '/' + $stateParams.collection;
   $scope.editable = false;
   if (userManagement.user.name === $stateParams.user) {
@@ -17,5 +17,10 @@ angular.module('curates.editCollection', [])
   }
   $scope.submitCollectionEdit = function() {
     collectionFactory.updateCollection($scope.collection);
+    var url = $scope.collection.url.split('/');
+    $state.go('singleCollection', { 
+      user: url[0],
+      collection: url[1]
+    });
   }
 })
