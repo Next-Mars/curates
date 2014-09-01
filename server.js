@@ -1,6 +1,6 @@
 var express = require('express');
 var session = require('express-session');
-
+var url = require('url');
 var bodyParser = require('body-parser');
 var dbUtils = require('./server/utils/dbUtils');
 
@@ -56,22 +56,11 @@ app.post('/collection', function(req, res) {
   })
     .fetch()
     .then(function(user) {
-      // if user doesn't exists
-
-      // if user exists
       var u_id = user.get('id');
       collectionToBeSavedOrUpdated.u_id = u_id;
 
       dbUtils.collectionExists(collectionToBeSavedOrUpdated,
         function(collection_id) {
-          // var params;
-          // if (options.method === 'save') {
-          //   params = null;
-          // } else if (options.method === 'update') {
-          //   params = {
-          //     collection_url: collectionToBeSavedOrUpdated.collection_url
-          //   }
-          // }
           collectionToBeSavedOrUpdated.id = collection_id;
           console.log("i am the collection: ", collectionToBeSavedOrUpdated);
           new Collection(collectionToBeSavedOrUpdated)
@@ -102,11 +91,117 @@ app.post('/collection', function(req, res) {
   res.end("post received");
 })
 
+//create  a new user
+
+app.post('/user', function(req, res) {
+  var data = req.body;
+  var userToBeSaved = {
+    username: data.username,
+    github: data.githubHandle,
+    email: data.email,
+    password_hash: data.password // in future will hash passwords before saving
+  };
+  dbUtils.userExists(userToBeSaved, function(u_id) {
+    userToBeSaved.id = u_id;
+    new User(userToBeSaved)
+      .save()
+      .then(function(user) {
+        console.log("successfully SAVED USER into db: ", user);
+        res.end(JSON.stringify({
+          id: user.id
+        }));
+      })
+  });
+});
+
+app.get('/user/:username/:collection', function(req, res) {
+  var url = req.path;
+  var username = url.slice(url.indexOf("/", 1) + 1, url.lastIndexOf("/"));
+
+  var data;
+  new Collection({
+    collection_url: url
+  })
+    .fetch()
+    .then(function(result) {
+      var collection = result.attributes;
+      data = {
+        title: collection.title,
+        url: collection.collection_url,
+        description: collection.description,
+        user: username,
+        stars: collection.stars
+      };
+      new Link()
+        .fetchAll({
+          c_id: collection.id
+        })
+        .then(function(collectionFound) {
+          data.links = collectionFound;
+          res.send(JSON.stringify(data));
+        })
+        .catch(function(err) {
+          console.error(err);
+          res.end(404)
+        })
+    })
+    .catch(function(err) {
+      console.error(err);
+      res.end(404)
+    })
+
+});
+
+app.get('/user/:user', function(req, res) {
+  // console.log("this is FOR BO req params ", req.params);
+  var url = req.path;
+  var username = url.slice(url.indexOf("/", 1) + 1);
+  var userToBefetched = {
+    username: username
+  };
+  new User({
+    username: username
+  })
+    .fetch()
+    .then(function(fetchedUser) {
+      if (fetchedUser) {
+        result = {
+          username: fetchedUser.attributes.username,
+          githubHandle: null,
+          email: null,
+          collections: []
+        }
+        var user_id = fetchedUser.get('id');
+        new Collection()
+          .fetchAll({
+            u_id: user_id
+          })
+          .then(function(collection_list) {
+            console.log("fetched colleciotn modesls: ", collection_list.models);
+            for (var i = 0; i < collection_list.models.length; i++) {
+              var thisCollection = collection_list.models[i].attributes;
+              var eachCollection = {
+                title: thisCollection.title,
+                url: thisCollection.collection_url,
+                description: thisCollection.description,
+                user: username,
+                stars: thisCollection.stars,
+              };
+              result.collections.push(eachCollection);
+            }
+            res.end(JSON.stringify(result));
+          });
+      } else {
+        res.status(404).send(404, "User doesn't exist");
+      }
+    });
+});
+
 //catchall route, serve index.html, leave further routing to angular
 app.get('/*', function(req, res) {
   console.log("received get for /");
   res.sendFile(__dirname + '/client/index.html')
-})
+});
 
 console.log('Curates is listening on 3000');
 app.listen(3000);

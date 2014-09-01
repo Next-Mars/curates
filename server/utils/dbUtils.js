@@ -5,6 +5,23 @@ var Link = require('../models/link');
 
 //check user
 
+exports.userExists = function(user, callback) {
+  var username = user.username;
+
+  new User({
+    username: username
+  })
+    .fetch()
+    .then(function(fetchedUser) {
+      console.log("I am the fetchedUser", fetchedUser);
+      if (fetchedUser) {
+        var user_id = fetchedUser.get('id');
+      } else {
+        var user_id = null;
+      }
+      callback(user_id);
+    });
+};
 //check collection
 exports.collectionExists = function(collection, callback) {
   var url = collection.collection_url;

@@ -1,3 +1,9 @@
 <div ng-controller="singleCollectionController">
-  {{ collection }}
+  <h2>{{ collection.title }}<small> by {{ collection.user }}</h2>
+  <p>{{ collection.description }}</p>
+  <a ng-href="#/{{ collection.url }}/edit" ng-if="isUser">Edit</a>
+  <div class="collectionLinks" ng-repeat="link in collection.links">
+    <h3><a ng-href="{{ link.url }}">{{ link.title }}</a></h3>
+    {{ link.description }}
+  </div>
 </div>
