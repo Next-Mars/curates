@@ -153,7 +153,48 @@ app.get('/user/:username/:collection', function(req, res) {
 });
 
 app.get('/user/:user', function(req, res) {
-  console.log("this is FOR BO req params ", req.params);
+  // console.log("this is FOR BO req params ", req.params);
+  var url = req.path;
+  var username = url.slice(url.indexOf("/", 1) + 1);
+  var userToBefetched = {
+    username: username
+  };
+  new User({
+    username: username
+  })
+    .fetch()
+    .then(function(fetchedUser) {
+      if (fetchedUser) {
+        result = {
+          username: fetchedUser.attributes.username,
+          githubHandle: null,
+          email: null,
+          collections: []
+        }
+        var user_id = fetchedUser.get('id');
+        new Collection()
+          .fetchAll({
+            u_id: user_id
+          })
+          .then(function(collection_list) {
+            console.log("fetched colleciotn modesls: ", collection_list.models);
+            for (var i = 0; i < collection_list.models.length; i++) {
+              var thisCollection = collection_list.models[i].attributes;
+              var eachCollection = {
+                title: thisCollection.title,
+                url: thisCollection.collection_url,
+                description: thisCollection.description,
+                user: username,
+                stars: thisCollection.stars,
+              };
+              result.collections.push(eachCollection);
+            }
+            res.end(JSON.stringify(result));
+          });
+      } else {
+        res.status(404).send(404, "User doesn't exist");
+      }
+    });
 });
 
 //catchall route, serve index.html, leave further routing to angular
