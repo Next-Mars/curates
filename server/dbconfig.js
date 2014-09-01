@@ -1,14 +1,18 @@
+var host = process.env.HOST || '127.0.0.1';
+var user = process.env.DBUSER || 'root';
+var dbpass = process.env.DBPASS || '';
+var dbname = process.env.DBNAME || 'curates';
+
 var Bookshelf = require('bookshelf');
 var path = require('path');
 var knex = require('knex')({
   client: 'mysql',
   connection: {
-    host: '127.0.0.1',
-    user: 'root',
-    password: '',
-    database: 'curates',
-    charset: 'utf8',
-    filename: path.join(__dirname, '../db/curates.sql')
+    host: host,
+    user: user,
+    password: dbpass,
+    database: dbname,
+    charset: 'utf8'
   }
 });
 
