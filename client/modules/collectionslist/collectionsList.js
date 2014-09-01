@@ -6,7 +6,9 @@ angular.module('curates.collectionslist', [])
     url: '/',
     templateUrl: 'modules/collectionsList/collectionsList.html'
   });
+
 })
-.controller('collectionsListController', function($scope, collectionFactory) {
-  $scope.listData = collectionFactory.getListData().collections;
-});
+
+.controller('collectionsListController', function($scope) {
+  $scope.ready = 'Hooray!';
+})
