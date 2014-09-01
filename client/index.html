@@ -17,52 +17,54 @@
   <div ui-view></div>
 
   <script type="text/javascript">
-  var url = "http://localhost:3000/user"
-  var data ={
-    username: "Test2",
-    password: 'Test2',
-    githubHandle: "@Test2",
-    email: "test2@test.com"
+  // var url = "http://localhost:3000/user/jack"
+  // var data ={
+  //   username: "Test2",
+  //   password: 'Test2',
+  //   githubHandle: "@Test2",
+  //   email: "test2@test.com"
+  // };
+
+  var url = "http://localhost:3000/collection"
+  var data = {
+    title: 'Coll Name',
+    url: '/user/Test/SomeCollectionName',
+    description: 'Descrareareara',
+    user: 'Test',
+    links: [{
+      url: 'www.googlegole.com',
+      title: 'Test',
+      description: 'url title'
+    }, {
+      url: 'www.21321321.com',
+      title: 'Test2',
+      description: 'url title'
+    }, {
+      url: 'www.usher.com',
+      title: 'usher Usher',
+      description: 'url title'
+    }]
   };
 
   $(document).ready(function(){
     console.log("doc is ready");
+    // $.ajax({
+    //   type: "POST",
+    //   url: url,
+    //   data: JSON.stringify(data),
+    //   success: function(data){
+    //     console.log("successfully posted: ", data)
+    //   },
+    //   dataType: 'JSON',
+    //   contentType: 'application/json'
+    // });
     $.ajax({
-      type: "POST",
-      url: url,
-      data: JSON.stringify(data),
+      url: "http://localhost:3000/user/Test/SomeCollectionName",
       success: function(data){
         console.log("successfully posted: ", data)
       },
-      dataType: 'JSON',
-      contentType: 'application/json'
+      dataType: 'JSON'
     });
-
-  // var url = "http://localhost:3000/collection"
-  // var data = {
-  //   title: 'Collection Test Title',
-  //   url: 'http://localhost:3000/collection',
-  //   description: 'Collection Description',
-  //   user: 'Test',
-  //   links: [{
-  //     url: 'www.testurl.com',
-  //     title: 'Test Title',
-  //     description: 'url title'
-  //   }]
-  // };
-
-  // $(document).ready(function(){
-  //   console.log("doc is ready");
-  //   $.ajax({
-  //     type: "POST",
-  //     url: url,
-  //     data: JSON.stringify(data),
-  //     success: function(data){
-  //       console.log("successfully posted: ", data)
-  //     },
-  //     dataType: 'JSON',
-  //     contentType: 'application/json'
-  //   });
   })
   </script>
 </body>

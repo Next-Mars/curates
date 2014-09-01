@@ -1,6 +1,6 @@
 var express = require('express');
 var session = require('express-session');
-
+var url = require('url');
 var bodyParser = require('body-parser');
 var dbUtils = require('./server/utils/dbUtils');
 
@@ -107,17 +107,60 @@ app.post('/user', function(req, res) {
       .save()
       .then(function(user) {
         console.log("successfully SAVED USER into db: ", user);
-        res.end(JSON.stringify(user));
+        res.end(JSON.stringify({
+          id: user.id
+        }));
       })
+  });
+});
 
+app.get('/user/:username/:collection', function(req, res) {
+  var url = req.path;
+  var username = url.slice(url.indexOf("/", 1) + 1, url.lastIndexOf("/"));
+
+  var data;
+  new Collection({
+    collection_url: url
   })
-})
+    .fetch()
+    .then(function(result) {
+      var collection = result.attributes;
+      data = {
+        title: collection.title,
+        url: collection.collection_url,
+        description: collection.description,
+        user: username,
+        stars: collection.stars
+      };
+      new Link()
+        .fetchAll({
+          c_id: collection.id
+        })
+        .then(function(collectionFound) {
+          data.links = collectionFound;
+          res.send(JSON.stringify(data));
+        })
+        .catch(function(err) {
+          console.error(err);
+          res.end(404)
+        })
+    })
+    .catch(function(err) {
+      console.error(err);
+      res.end(404)
+    })
+
+});
+
+app.get('/user/:user', function(req, res) {
+  console.log("this is FOR BO req params ", req.params);
+});
 
 //catchall route, serve index.html, leave further routing to angular
 app.get('/*', function(req, res) {
   console.log("received get for /");
   res.sendFile(__dirname + '/client/index.html')
-})
+});
 
 console.log('Curates is listening on 3000');
 app.listen(3000);
