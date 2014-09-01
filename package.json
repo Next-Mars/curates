@@ -17,15 +17,16 @@
   },
   "homepage": "https://github.com/Next-Mars/curates",
   "dependencies": {
+    "body-parser": "~1.6.6",
+    "bookshelf": "~0.7.7",
+    "cookie-parser": "~1.3.2",
+    "express": "~4.8.6",
+    "express-partials": "~0.3.0",
+    "express-session": "~1.7.6",
     "grunt": "^0.4.5",
     "gulp": "^3.8.7",
-    "express": "~4.8.6",
     "knex": "~0.6.22",
     "mysql": "~2.4.3",
-    "bookshelf": "~0.7.7",
-    "express-partials": "~0.3.0",
-    "body-parser": "~1.6.6",
-    "express-session": "~1.7.6",
-    "cookie-parser": "~1.3.2"
+    "underscore": "^1.7.0"
   }
 }

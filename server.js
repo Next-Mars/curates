@@ -89,6 +89,38 @@ app.post('/collection', function(req, res) {
     });
 
   res.end("post received");
+});
+
+//updating an existing collection
+
+app.post('/collection/:collectionID', function(req, res) {
+  var collectionID = req.params.collectionID
+  var data = req.body;
+  var collectionFieldsToUpdate = {};
+
+  for (var k in data) {
+    if (typeof data[k] === 'string') { // need to escape scenarios when the data object has 'links key' which is array
+      collectionFieldsToUpdate[k] = data[k];
+    }
+  }
+
+  //function to updateCollections
+
+  new Collection({
+    id: collectionID
+  }).save(collectionFieldsToUpdate, { //accounts for scenarios when user is updating meta data of links
+    patch: true // patch just updates the Collection Entry with what is CollectionFieldsToUpdate
+  }).then(function(collectionUpdated) {
+    if (data.links) {
+      new Link()
+        .fetchAll({
+          c_id: collectionID
+        })
+        .then(function(linkCollection) {
+          console.log("found all link collections: ", linkCollection);
+        })
+    }
+  })
 })
 
 //create  a new user
@@ -177,7 +209,6 @@ app.get('/user/:user', function(req, res) {
             u_id: user_id
           })
           .then(function(collection_list) {
-            console.log("fetched colleciotn modesls: ", collection_list.models);
             for (var i = 0; i < collection_list.models.length; i++) {
               var thisCollection = collection_list.models[i].attributes;
               var eachCollection = {
