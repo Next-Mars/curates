@@ -17,17 +17,12 @@
   <div ui-view></div>
 
   <script type="text/javascript">
-  var url = "http://localhost:3000/collection"
-  var data = {
-    title: 'Collection Test Title',
-    url: 'http://localhost:3000/collection',
-    description: 'Collection Description',
-    user: 'Test',
-    links: [{
-      url: 'www.testurl.com',
-      title: 'Test Title',
-      description: 'url title'
-    }]
+  var url = "http://localhost:3000/user"
+  var data ={
+    username: "Test2",
+    password: 'Test2',
+    githubHandle: "@Test2",
+    email: "test2@test.com"
   };
 
   $(document).ready(function(){
@@ -42,6 +37,32 @@
       dataType: 'JSON',
       contentType: 'application/json'
     });
+
+  // var url = "http://localhost:3000/collection"
+  // var data = {
+  //   title: 'Collection Test Title',
+  //   url: 'http://localhost:3000/collection',
+  //   description: 'Collection Description',
+  //   user: 'Test',
+  //   links: [{
+  //     url: 'www.testurl.com',
+  //     title: 'Test Title',
+  //     description: 'url title'
+  //   }]
+  // };
+
+  // $(document).ready(function(){
+  //   console.log("doc is ready");
+  //   $.ajax({
+  //     type: "POST",
+  //     url: url,
+  //     data: JSON.stringify(data),
+  //     success: function(data){
+  //       console.log("successfully posted: ", data)
+  //     },
+  //     dataType: 'JSON',
+  //     contentType: 'application/json'
+  //   });
   })
   </script>
 </body>

@@ -56,22 +56,11 @@ app.post('/collection', function(req, res) {
   })
     .fetch()
     .then(function(user) {
-      // if user doesn't exists
-
-      // if user exists
       var u_id = user.get('id');
       collectionToBeSavedOrUpdated.u_id = u_id;
 
       dbUtils.collectionExists(collectionToBeSavedOrUpdated,
         function(collection_id) {
-          // var params;
-          // if (options.method === 'save') {
-          //   params = null;
-          // } else if (options.method === 'update') {
-          //   params = {
-          //     collection_url: collectionToBeSavedOrUpdated.collection_url
-          //   }
-          // }
           collectionToBeSavedOrUpdated.id = collection_id;
           console.log("i am the collection: ", collectionToBeSavedOrUpdated);
           new Collection(collectionToBeSavedOrUpdated)
@@ -100,6 +89,28 @@ app.post('/collection', function(req, res) {
     });
 
   res.end("post received");
+})
+
+//create  a new user
+
+app.post('/user', function(req, res) {
+  var data = req.body;
+  var userToBeSaved = {
+    username: data.username,
+    github: data.githubHandle,
+    email: data.email,
+    password_hash: data.password // in future will hash passwords before saving
+  };
+  dbUtils.userExists(userToBeSaved, function(u_id) {
+    userToBeSaved.id = u_id;
+    new User(userToBeSaved)
+      .save()
+      .then(function(user) {
+        console.log("successfully SAVED USER into db: ", user);
+        res.end(JSON.stringify(user));
+      })
+
+  })
 })
 
 //catchall route, serve index.html, leave further routing to angular
