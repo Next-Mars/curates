@@ -203,5 +203,5 @@ app.get('/*', function(req, res) {
   res.sendFile(__dirname + '/client/index.html')
 });
 
-console.log('Curates is listening on 3000');
-app.listen(3000);
+console.log('Curates is listening on ' + port);
+app.listen(port);
