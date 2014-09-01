@@ -70,7 +70,7 @@ app.post('/collection', function(req, res) {
               var c_id = collection.get('id');
               console.log("this is the c_id: ", c_id);
               linksToBeSaved.forEach(function(linkObj) {
-                dbUtils.linkExists(linkObj, function(link_id) {
+                dbUtils.linkExistsInSpecificCollection(linkObj, c_id, function(link_id) {
                   new Link({
                     id: link_id,
                     c_id: c_id,
@@ -96,14 +96,16 @@ app.post('/collection', function(req, res) {
 app.post('/collection/:collectionID', function(req, res) {
   var collectionID = req.params.collectionID
   var data = req.body;
+  console.log("data   ", data);
   var collectionFieldsToUpdate = {};
 
   for (var k in data) {
-    if (typeof data[k] === 'string') { // need to escape scenarios when the data object has 'links key' which is array
+    if (typeof data[k] === 'string' && k !== 'url') { // need to escape links array as irrevalnt to COLLECTIONS update
+      // also escape data.url as we do not want to update a collection's url
       collectionFieldsToUpdate[k] = data[k];
     }
   }
-
+  console.log("collectionFields Update: ", collectionFieldsToUpdate);
   //function to updateCollections
 
   new Collection({
@@ -112,14 +114,27 @@ app.post('/collection/:collectionID', function(req, res) {
     patch: true // patch just updates the Collection Entry with what is CollectionFieldsToUpdate
   }).then(function(collectionUpdated) {
     if (data.links) {
-      new Link()
-        .fetchAll({
+      data.links.forEach(function(linkObj) {
+        var url = linkObj.url;
+        var linkToBeUpdatedOrSaved = {
+          link_url: linkObj.url,
+          link_title: linkObj.title,
+          description: linkObj.description,
           c_id: collectionID
-        })
-        .then(function(linkCollection) {
-          console.log("found all link collections: ", linkCollection);
-        })
+        };
+        dbUtils.linkExistsInSpecificCollection(url, collectionID, function(l_id) {
+          linkToBeUpdatedOrSaved.id = l_id;
+          new Link(linkToBeUpdatedOrSaved)
+            .save()
+            .then(function(link) {
+              console.log("successfully updated link: ", link);
+            })
+        });
+      });
     }
+    //need to refactor below to deal with asynchronous save
+    console.log("xxxx about to post end");
+    res.end("successfully posted");
   })
 })
 
@@ -165,9 +180,8 @@ app.get('/user/:username/:collection', function(req, res) {
         stars: collection.stars
       };
       new Link()
-        .fetchAll({
-          c_id: collection.id
-        })
+        .query('where', 'c_id', '=', collection.id)
+        .fetchAll()
         .then(function(collectionFound) {
           data.links = collectionFound;
           res.send(JSON.stringify(data));
@@ -230,7 +244,6 @@ app.get('/user/:user', function(req, res) {
 
 //catchall route, serve index.html, leave further routing to angular
 app.get('/*', function(req, res) {
-  console.log("received get for /");
   res.sendFile(__dirname + '/client/index.html')
 });
 
