@@ -14,70 +14,51 @@ var knex = require('knex')({
 
 var db = require('bookshelf')(knex);
 
-
-db.knex.schema.hasTable('users').then(function (exists) {
+db.knex.schema.hasTable('users').then(function(exists) {
   if (!exists) {
-    db.knex.schema.createTable('users', function (user) {
-      user.increments('u_id').primary();
+    db.knex.schema.createTable('users', function(user) {
+      user.increments('id').primary();
       user.string('username', 64);
       user.string('github', 64);
       user.string('email', 64);
       user.string('password_hash', 255);
       user.timestamps();
-    }).then(function (table) {
+    }).then(function(table) {
       console.log('Created User Table', table);
     });
   }
 });
 
-
-db.knex.schema.hasTable('collections').then(function (exists) {
+db.knex.schema.hasTable('collections').then(function(exists) {
   if (!exists) {
-    db.knex.schema.createTable('collections', function (collection) {
-      collection.increments('c_id').primary();
-      collection.integer('u_id');
+    db.knex.schema.createTable('collections', function(collection) {
+      collection.increments('id').primary();
+      collection.integer('u_id'); //references users.id
       collection.string('title', 255);
-      collection.string('collection_url', 255)
+      collection.string('collection_url', 255).unique();
       collection.string('description', 255);
       collection.integer('stars');
       collection.timestamps();
-    }).then(function (table) {
+    }).then(function(table) {
       console.log('Created Collections Table', table);
     });
   }
 });
 
-db.knex.schema.hasTable('links').then(function (exists) {
+db.knex.schema.hasTable('links').then(function(exists) {
   if (!exists) {
-    db.knex.schema.createTable('links', function (link) {
-      link.increments('l_id').primary();
-      link.integer('c_id');
+    db.knex.schema.createTable('links', function(link) {
+      link.increments('id').primary();
+      link.integer('c_id'); //references collections.id
       link.string('link_url', 255);
       link.string('link_title', 255);
       link.string('description', 255);
-      link.integer('click_count');
+      link.integer('click_count').defaultTo(0);
       link.timestamps();
-    }).then(function (table) {
+    }).then(function(table) {
       console.log('Created Links Table', table);
     });
   }
 });
 
-// //join table, many to many relationship between collections and links
-// db.knex.schema.hasTable('links_collections').then(function (exists) {
-//   if (!exists) {
-//     db.knex.schema.createTable('links_collections', function (linkCollection) {
-//       linkCollection.increments('LC_id').primary();
-//       linkCollection.integer('c_id');
-//       linkCollection.integer('l_id');
-//       linkCollection.string('description', 255);
-//       linkCollection.integer('click_count');
-//     }).then(function(table){
-//       console.log("Created Links-Collections table ", table);
-//     });
-//   }
-// });
-
-
 module.exports = db;
-
