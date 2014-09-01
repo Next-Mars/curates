@@ -7,4 +7,4 @@ angular.module('curates')
     // },
     templateUrl: 'directives/userManagement.html'
   }
-})
+});

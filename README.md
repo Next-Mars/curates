@@ -27,9 +27,9 @@ Table of Contents
 
 ## Requirements
 
-- Mysql x.x.x
-- Angular x.x.x
-- Express 2.6.x
+- Mysql 2.4.3
+- Angular 1.2.23
+- Express 4.8.6
 - Node 0.10.x
 
 ## Development
