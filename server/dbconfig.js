@@ -1,4 +1,4 @@
-var host = process.env.HOST || '127.0.0.1';
+var host = process.env.DBHOST || '127.0.0.1';
 var user = process.env.DBUSER || 'root';
 var dbpass = process.env.DBPASS || '';
 var dbname = process.env.DBNAME || 'curates';
