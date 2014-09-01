@@ -59,4 +59,28 @@ exports.linkExists = function(link, callback) {
       }
       callback(link_id);
     });
-}
+};
+
+// need to refactor below into above function
+exports.linkExistsInSpecificCollection = function(url, c_id, callback) {
+  var c_id = c_id;
+  new Link()
+    .query({
+      where: {
+        link_url: url
+      },
+      andWhere: {
+        c_id: c_id
+      }
+    })
+    .fetch()
+    .then(function(fetchedLink) {
+      if (fetchedLink) {
+        var link_id = fetchedLink.get('id');
+      } else {
+        var link_id = null;
+      }
+      console.log("link found:    ", fetchedLink);
+      callback(link_id);
+    });
+};
