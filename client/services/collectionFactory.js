@@ -2,6 +2,8 @@ angular.module('curates.collectionFactory', [])
 .factory('collectionFactory', function($http){
 
   var getCollection = function(url) {
+    url = 'user/' + url;
+    console.log(url);
     return $http({
       method: 'GET',
       url: url
@@ -31,7 +33,7 @@ angular.module('curates.collectionFactory', [])
   var updateCollection = function(collection) {
     return $http({
       method: 'POST',
-      url: 'collection/' + collection.c_id,
+      url: 'collection/' + collection.id,
       data: collection
     }).then(function(response) {
       return response.data;

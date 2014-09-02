@@ -10,7 +10,9 @@ angular.module('curates.singleCollection', [])
 
 .controller('singleCollectionController', function($scope, $stateParams, collectionFactory, userManagement) {
   var url = $stateParams.user + '/' + $stateParams.collection;
-  // if the url doesn't exist, take the user somewhere else?
-  $scope.collection = collectionFactory.getCollection(url);
-  $scope.isUser = userManagement.user.name === $scope.collection.user;
+  collectionFactory.getCollection(url).then(function(collection) {
+    console.log(collection);
+    $scope.collection = collection;
+    $scope.isUser = userManagement.user.name === $scope.collection.username;
+  });
 });
