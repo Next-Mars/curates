@@ -42,13 +42,7 @@ app.post('/collection', function(req, res) {
 
   var data = req.body;
 
-  var collectionToBeSavedOrUpdated = {
-    u_id: 0,
-    title: data.title,
-    collection_url: data.url,
-    description: data.description,
-    stars: 0
-  };
+  var collectionToBeSavedOrUpdated = dbUtils.createCollectionModelObj(data);
 
   var linksToBeSaved = data.links; //array of link objects each { url: url, description: description, title: title}
   //fetch the user and the user id
@@ -57,13 +51,10 @@ app.post('/collection', function(req, res) {
   })
     .fetch()
     .then(function(user) {
-      var u_id = user.get('id');
-      collectionToBeSavedOrUpdated.u_id = u_id;
-
+      collectionToBeSavedOrUpdated.u_id = user.get('id');
       dbUtils.collectionExists(collectionToBeSavedOrUpdated,
         function(collection_id) {
           collectionToBeSavedOrUpdated.id = collection_id;
-          console.log("i am the collection: ", collectionToBeSavedOrUpdated);
           new Collection(collectionToBeSavedOrUpdated)
             .save()
             .then(function(collection) {
@@ -165,6 +156,7 @@ app.post('/user', function(req, res) {
   });
 });
 
+//GET LINKS OF SPECIFIC COLLECTION
 app.get('/user/:username/:collection', function(req, res) {
   var url = req.path;
   var username = url.slice(url.indexOf("/", 1) + 1, url.lastIndexOf("/"));
@@ -177,6 +169,7 @@ app.get('/user/:username/:collection', function(req, res) {
     .then(function(result) {
       var collection = result.attributes;
       data = {
+        c_id: collection.id, // return collection_id to client for the target collection
         title: collection.title,
         url: collection.collection_url,
         description: collection.description,
@@ -252,8 +245,9 @@ app.get('/user/:user', function(req, res) {
 app.get('/all', function(req, res) {
   db.knex('collections')
     .join('users', 'collections.u_id', '=', 'users.id')
-    .select('users.username', 'collections.title', 'collections.collection_url', 'collections.stars', 'collections.description')
+    .select('collections.id', 'collections.title', 'collections.collection_url', 'collections.stars', 'collections.description', 'users.username')
     .then(function(joinTable) {
+      console.log("This is the join table: ", joinTable);
       var data = {
         collections: joinTable
       };

@@ -5,6 +5,17 @@ var Link = require('../models/link');
 
 //check user
 
+//create an Object to be passed into new Collection();
+exports.createCollectionModelObj = function(data) {
+  var result = {};
+  result.u_id = 0;
+  result.title = data.title;
+  result.collection_url = data.url;
+  result.description = data.description;
+  result.stars = 0;
+  return result;
+};
+
 exports.userExists = function(user, callback) {
   var username = user.username;
 
@@ -41,7 +52,7 @@ exports.collectionExists = function(collection, callback) {
     });
 }
 
-// check links
+// check links - linkExists is deprecated by linkExistsInSpecificCollection
 
 exports.linkExists = function(link, callback) {
   var url = link.url;
