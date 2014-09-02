@@ -9,6 +9,7 @@ var User = require('./server/models/user');
 var Link = require('./server/models/link');
 var Collection = require('./server/models/collection');
 var cookieParser = require('cookie-parser');
+var port = process.env.PORT || 3000;
 
 app = express();
 
@@ -264,5 +265,5 @@ app.get('/*', function(req, res) {
   res.sendFile(__dirname + '/client/index.html')
 });
 
-console.log('Curates is listening on 3000');
-app.listen(3000);
+console.log('Curates is listening on ' + port);
+app.listen(port);
