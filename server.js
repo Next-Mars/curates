@@ -244,15 +244,14 @@ app.get('/user/:user', function(req, res) {
 
 // route to get all collection from database
 app.get('/all', function(req, res) {
-  console.log("haha")
   db.knex('collections')
     .join('users', 'collections.u_id', '=', 'users.id')
     .select('users.username', 'collections.title', 'collections.collection_url', 'collections.stars', 'collections.description')
     .then(function(joinTable) {
-      var d = {
+      var data = {
         collections: joinTable
       };
-      res.end(JSON.stringify(d));
+      res.end(JSON.stringify(data));
     })
 });
 //catchall route, serve index.html, leave further routing to angular
