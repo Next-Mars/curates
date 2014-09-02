@@ -49,9 +49,9 @@ describe('', function() {
 	      });
 	});
 
-	describe('Create user', function(){
+	describe('New user: ', function(){
 
-		it("Signup creates a user record", function(){
+		it("Signup creates a user record", function(done){
 			var options = {
 				'method': 'POST',
 		        'uri': 'http://127.0.0.1:3000/user',
@@ -70,41 +70,53 @@ describe('', function() {
 		          	console.log(res);
 		          	if(res[0] && res[0]['username']){
 		          		var username = res[0]['username'];
-		          		var password = res[0]['password'];
-		          		var githubHandle = res[0]['githubHandle'];
+		          		var password = res[0]['password_hash'];
+		          		var githubHandle = res[0]['github'];
 		          		var email = res[0]['email'];
 		          	}
-		          	expect(username).to.equal('test1');
-		          	expect(password).to.equal('test1');
+		          	expect(username).to.equal('test');
+		          	expect(password).to.equal('test');
 		          	expect(githubHandle).to.equal('handle');
 		          	expect(email).to.equal('123@gmail.com');
 		          	done();
-				  }).catch(function(err){
-				  	throw{
-		  	            type: 'DatabaseError',
-			            message: 'Failed to create test setup data'
-			        }
 				  });
 		    });
+
 		});
 
-		// it("Signuped user should be able to be retrieved", function(){
-		//     var options = {
-		//     	'method': 'GET',
-		//     	'uri': 'http://127.0.0.1:3000/user/test'
-		//     };
+	});
 
-		//     request(options, function(error, res, body) {
-		//     	console.log('what is the res: ', res);
-		//     	expect(body).to.include('"username":"test", "hubHandle":"handle"');
-		//     	expect(body).to.include('"username":"test"');
-		//     	done();
-		//     });
-		// });
+	describe('Retrieve a user: ', function(){
+
+		beforeEach(function(done){
+			new User({'username': 'test',
+			          'password_hash': 'test',
+			          'github': 'handle',
+			          'email': '123@gmail.com'
+			      }).save().then(function(){
+			      	done();
+			      });
+
+		});
+
+		it("Signuped user should be able to be retrieved", function(done){
+		    var options = {
+		    	'method': 'GET',
+		    	'uri': 'http://127.0.0.1:3000/user/test'
+		    };
+
+		    request(options, function(error, res, body) {
+		    	expect(body).to.include('"username":"test"');
+		    	expect(body).to.include('"githubHandle":"handle"');
+		    	expect(body).to.include('"email":"123@gmail.com"');
+		    	expect(body).to.include('"collections"');
+		    	done();
+		    });
+		});
 	});
 
 	describe("Create collections", function(){
-
+		
 	})
 
 
