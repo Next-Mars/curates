@@ -1,6 +1,6 @@
 angular.module('curates', [
   'ui.router',
-  'curates.collectionslist',
+  'curates.collectionsList',
   'curates.singleCollection',
   'curates.editCollection',
   'curates.services',
