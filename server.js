@@ -36,7 +36,7 @@ app.use(express.static(__dirname + '/client'));
 
 // creating a new collection with new urls;
 app.post('/collection', function(req, res) {
-
+  console.log("req body ", req.body);
   //need to check if user is signed in/authorised;
 
   var data = req.body;
@@ -70,14 +70,16 @@ app.post('/collection', function(req, res) {
               var c_id = collection.get('id');
               console.log("this is the c_id: ", c_id);
               linksToBeSaved.forEach(function(linkObj) {
-                dbUtils.linkExistsInSpecificCollection(linkObj, c_id, function(link_id) {
-                  new Link({
+                var url = linkObj.url;
+                dbUtils.linkExistsInSpecificCollection(url, c_id, function(link_id) {
+                  var linkDetails = {
                     id: link_id,
                     c_id: c_id,
                     link_url: linkObj.url,
                     link_title: linkObj.title,
                     description: linkObj.description
-                  })
+                  };
+                  new Link(linkDetails)
                     .save()
                     .then(function(link) {
                       console.log("successfully saved links: ");
@@ -141,6 +143,7 @@ app.post('/collection/:collectionID', function(req, res) {
 //create  a new user
 
 app.post('/user', function(req, res) {
+  console.log("req: ", req.body);
   var data = req.body;
   var userToBeSaved = {
     username: data.username,
@@ -197,6 +200,8 @@ app.get('/user/:username/:collection', function(req, res) {
     })
 
 });
+
+//get collection from all users
 
 app.get('/user/:user', function(req, res) {
   // console.log("this is FOR BO req params ", req.params);
