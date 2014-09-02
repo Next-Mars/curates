@@ -156,6 +156,7 @@ app.post('/user', function(req, res) {
   });
 });
 
+//GET LINKS OF SPECIFIC COLLECTION
 app.get('/user/:username/:collection', function(req, res) {
   var url = req.path;
   var username = url.slice(url.indexOf("/", 1) + 1, url.lastIndexOf("/"));
@@ -168,6 +169,7 @@ app.get('/user/:username/:collection', function(req, res) {
     .then(function(result) {
       var collection = result.attributes;
       data = {
+        c_id: collection.id, // return collection_id to client for the target collection
         title: collection.title,
         url: collection.collection_url,
         description: collection.description,
@@ -243,8 +245,9 @@ app.get('/user/:user', function(req, res) {
 app.get('/all', function(req, res) {
   db.knex('collections')
     .join('users', 'collections.u_id', '=', 'users.id')
-    .select('users.username', 'collections.title', 'collections.collection_url', 'collections.stars', 'collections.description')
+    .select('collections.id', 'collections.title', 'collections.collection_url', 'collections.stars', 'collections.description', 'users.username')
     .then(function(joinTable) {
+      console.log("This is the join table: ", joinTable);
       var data = {
         collections: joinTable
       };
