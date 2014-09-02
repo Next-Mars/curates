@@ -42,13 +42,7 @@ app.post('/collection', function(req, res) {
 
   var data = req.body;
 
-  var collectionToBeSavedOrUpdated = {
-    u_id: 0,
-    title: data.title,
-    collection_url: data.url,
-    description: data.description,
-    stars: 0
-  };
+  var collectionToBeSavedOrUpdated = dbUtils.createCollectionModelObj(data);
 
   var linksToBeSaved = data.links; //array of link objects each { url: url, description: description, title: title}
   //fetch the user and the user id
@@ -57,13 +51,10 @@ app.post('/collection', function(req, res) {
   })
     .fetch()
     .then(function(user) {
-      var u_id = user.get('id');
-      collectionToBeSavedOrUpdated.u_id = u_id;
-
+      collectionToBeSavedOrUpdated.u_id = user.get('id');
       dbUtils.collectionExists(collectionToBeSavedOrUpdated,
         function(collection_id) {
           collectionToBeSavedOrUpdated.id = collection_id;
-          console.log("i am the collection: ", collectionToBeSavedOrUpdated);
           new Collection(collectionToBeSavedOrUpdated)
             .save()
             .then(function(collection) {
