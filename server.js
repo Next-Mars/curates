@@ -144,15 +144,20 @@ app.post('/user', function(req, res) {
     password_hash: data.password // in future will hash passwords before saving
   };
   dbUtils.userExists(userToBeSaved, function(u_id) {
-    userToBeSaved.id = u_id;
-    new User(userToBeSaved)
-      .save()
-      .then(function(user) {
-        console.log("successfully SAVED USER into db: ", user);
-        res.end(JSON.stringify({
-          id: user.id
-        }));
+    if(!u_id){
+      userToBeSaved.id = u_id;
+      new User(userToBeSaved)
+          .save()
+          .then(function(user) {
+          console.log("successfully SAVED USER into db: ", user);
+          res.end(JSON.stringify({
+            id: user.id
+          }));
       })
+    }
+    else{
+      res.status(405).end("User already exists");
+    }
   });
 });
 
@@ -201,9 +206,7 @@ app.get('/user/:user', function(req, res) {
   // console.log("this is FOR BO req params ", req.params);
   var url = req.path;
   var username = url.slice(url.indexOf("/", 1) + 1);
-  var userToBefetched = {
-    username: username
-  };
+
   new User({
     username: username
   })
@@ -212,8 +215,8 @@ app.get('/user/:user', function(req, res) {
       if (fetchedUser) {
         result = {
           username: fetchedUser.attributes.username,
-          githubHandle: null,
-          email: null,
+          githubHandle: fetchedUser.attributes.github,
+          email: fetchedUser.attributes.email,
           collections: []
         }
         var user_id = fetchedUser.get('id');
@@ -233,6 +236,7 @@ app.get('/user/:user', function(req, res) {
               };
               result.collections.push(eachCollection);
             }
+            console.log("get user result: ", result);
             res.end(JSON.stringify(result));
           });
       } else {
