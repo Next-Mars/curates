@@ -9,6 +9,7 @@ var User = require('./server/models/user');
 var Link = require('./server/models/link');
 var Collection = require('./server/models/collection');
 var cookieParser = require('cookie-parser');
+var port = process.env.PORT || 3000;
 
 app = express();
 
