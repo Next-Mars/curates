@@ -39,7 +39,7 @@ db.knex.schema.hasTable('collections').then(function(exists) {
       collection.increments('id').primary();
       collection.integer('u_id'); //references users.id
       collection.string('title', 255);
-      collection.string('collection_url', 255).unique();
+      collection.string('collection_url', 255).unique().notNullable();
       collection.string('description', 255);
       collection.integer('stars');
       collection.timestamps();
@@ -54,7 +54,7 @@ db.knex.schema.hasTable('links').then(function(exists) {
     db.knex.schema.createTable('links', function(link) {
       link.increments('id').primary();
       link.integer('c_id'); //references collections.id
-      link.string('link_url', 255);
+      link.string('link_url', 255).notNullable();
       link.string('link_title', 255);
       link.string('description', 255);
       link.integer('click_count').defaultTo(0);

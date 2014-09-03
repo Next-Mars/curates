@@ -76,13 +76,18 @@ app.post('/collection', function(req, res) {
                     .then(function(link) {
                       console.log("successfully saved links: ");
                     })
+                    .catch(function(error) {
+                      res.status(400).end("Cannot create collection");
+                    });
                 })
-              })
+              });
+              res.end(JSON.stringify(collection));
             })
+            .catch(function(error) {
+              res.status(400).end("Cannot create collection");
+            });
         });
     });
-
-  res.end("post received");
 });
 
 //updating an existing collection
@@ -106,30 +111,37 @@ app.post('/collection/:collectionID', function(req, res) {
     id: collectionID
   }).save(collectionFieldsToUpdate, { //accounts for scenarios when user is updating meta data of links
     patch: true // patch just updates the Collection Entry with what is CollectionFieldsToUpdate
-  }).then(function(collectionUpdated) {
-    if (data.links) {
-      data.links.forEach(function(linkObj) {
-        var url = linkObj.url;
-        var linkToBeUpdatedOrSaved = {
-          link_url: linkObj.url,
-          link_title: linkObj.title,
-          description: linkObj.description,
-          c_id: collectionID
-        };
-        dbUtils.linkExistsInSpecificCollection(url, collectionID, function(l_id) {
-          linkToBeUpdatedOrSaved.id = l_id;
-          new Link(linkToBeUpdatedOrSaved)
-            .save()
-            .then(function(link) {
-              console.log("successfully updated link: ", link);
-            })
-        });
-      });
-    }
-    //need to refactor below to deal with asynchronous save
-    console.log("xxxx about to post end");
-    res.end("successfully posted");
   })
+    .then(function(collectionUpdated) {
+      if (data.links) {
+        data.links.forEach(function(linkObj) {
+          var url = linkObj.url;
+          var linkToBeUpdatedOrSaved = {
+            link_url: linkObj.url,
+            link_title: linkObj.title,
+            description: linkObj.description,
+            c_id: collectionID
+          };
+          dbUtils.linkExistsInSpecificCollection(url, collectionID, function(l_id) {
+            linkToBeUpdatedOrSaved.id = l_id;
+            new Link(linkToBeUpdatedOrSaved)
+              .save()
+              .then(function(link) {
+                console.log("successfully updated link: ", link);
+              })
+              .catch(function(error) {
+                res.status(400).end("Cannot update collection");
+              })
+          });
+        });
+      }
+      //need to refactor below to deal with asynchronous save
+      console.log("xxxx about to post end");
+      res.end(JSON.stringify(collectionUpdated));
+    })
+    .catch(function(error) {
+      res.status(400).end("Cannot update collection");
+    })
 })
 
 //create  a new user
@@ -144,18 +156,17 @@ app.post('/user', function(req, res) {
     password_hash: data.password // in future will hash passwords before saving
   };
   dbUtils.userExists(userToBeSaved, function(u_id) {
-    if(!u_id){
+    if (!u_id) {
       userToBeSaved.id = u_id;
       new User(userToBeSaved)
-          .save()
-          .then(function(user) {
+        .save()
+        .then(function(user) {
           console.log("successfully SAVED USER into db: ", user);
           res.end(JSON.stringify({
             id: user.id
           }));
-      })
-    }
-    else{
+        })
+    } else {
       res.status(405).end("User already exists");
     }
   });
@@ -190,14 +201,13 @@ app.get('/user/:username/:collection', function(req, res) {
         })
         .catch(function(err) {
           console.error(err);
-          res.end(404)
+          res.status(400).end(JSON.stringify(err));
         })
     })
     .catch(function(err) {
       console.error(err);
-      res.end(404)
+      res.status(400).end(JSON.stringify(err));
     })
-
 });
 
 //get collection from all users
@@ -257,6 +267,9 @@ app.get('/all', function(req, res) {
       };
       res.end(JSON.stringify(data));
     })
+    .catch(function(err) {
+      res.status(404).end(JSON.stringify(err));
+    });
 });
 //catchall route, serve index.html, leave further routing to angular
 app.get('/*', function(req, res) {
