@@ -41,6 +41,7 @@ angular.module('curates.collectionFactory', [])
   };
 
   var createCollection = function(collection) {
+    console.log(collection);
     return $http({
       method: 'POST',
       url: 'collection',
@@ -54,7 +55,8 @@ angular.module('curates.collectionFactory', [])
     getCollection: getCollection,
     getListData: getListData,
     getUserCollections: getUserCollections,
-    updateCollection: updateCollection
+    updateCollection: updateCollection,
+    createCollection: createCollection
   };
 
 })

@@ -12,7 +12,6 @@ angular.module('curates.services', [])
     }).success(function(data) {
       user.username = data.username;
       user.loggedIn = true;
-      console.log(user);
     }).error(function(data) {
       // User not yet registered, register them
       $http({
