@@ -28,7 +28,8 @@ angular.module('curates.collectionFactory', [])
       method: 'GET',
       url: '/user/' + user
     }).then(function(response) {
-      return response.data;
+      console.log(response.data.collections);
+      return response.data.collections;
     });
   };
 

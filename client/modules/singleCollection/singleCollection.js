@@ -13,7 +13,7 @@ angular.module('curates.singleCollection', [])
   collectionFactory.getCollection(url).then(function(collection) {
     console.log(collection.data);
     $scope.collection = collection.data;
-    $scope.isUser = userManagement.user.name === $scope.collection.user;
+    $scope.isUser = userManagement.user.username === $scope.collection.user;
     console.log($scope.isUser);
   });
 });
