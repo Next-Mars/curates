@@ -5,8 +5,11 @@ build:
   steps:
     # A step that executes `npm install` command
     - npm-install
-    # A step that executes `npm test` command
-    - npm-test
+    # A step that executes `grunt test` command
+    - script:
+        name: run grunt test
+        code: grunt test |
+          echo "grunt test finished"
 
     # A custom script step, name value is used in the UI
     # and the code value contains the command that get executed
