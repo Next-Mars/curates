@@ -2,13 +2,15 @@ angular.module('curates.collectionFactory', [])
 .factory('collectionFactory', function($http){
 
   var getCollection = function(url) {
-    url = 'user/' + url;
     console.log(url);
     return $http({
       method: 'GET',
       url: url
-    }).then(function(response) {
-      return response.data;
+    }).success(function(collection) {
+      console.log(collection);
+      return collection;
+    }).error(function(error) {
+      console.log(error);
     });
   };
 
@@ -41,11 +43,13 @@ angular.module('curates.collectionFactory', [])
   };
 
   var createCollection = function(collection) {
+    collection.url = collection.collection_url;
+    delete collection.collection_url;
     console.log(collection);
     return $http({
       method: 'POST',
       url: 'collection',
-      data: collection
+      data: JSON.stringify(collection)
     }).then(function(response) {
       return response.data;
     });

@@ -3,16 +3,17 @@ angular.module('curates.singleCollection', [])
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
   .state('singleCollection', {
-    url: '/:user/:collection',
+    url: '/user/:user/:collection',
     templateUrl: 'modules/singleCollection/singleCollection.html'
   })
 })
 
 .controller('singleCollectionController', function($scope, $stateParams, collectionFactory, userManagement) {
-  var url = $stateParams.user + '/' + $stateParams.collection;
+  var url = '/user/' + $stateParams.user + '/' + $stateParams.collection;
   collectionFactory.getCollection(url).then(function(collection) {
-    console.log(collection);
-    $scope.collection = collection;
-    $scope.isUser = userManagement.user.name === $scope.collection.username;
+    console.log(collection.data);
+    $scope.collection = collection.data;
+    $scope.isUser = userManagement.user.name === $scope.collection.user;
+    console.log($scope.isUser);
   });
 });

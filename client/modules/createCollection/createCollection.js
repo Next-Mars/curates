@@ -32,8 +32,8 @@ angular.module('curates.createCollection', [])
   );
   // called on submitting the form
   $scope.submitCreate = function() {
-    console.log($scope.collection);
     collectionFactory.createCollection($scope.collection).then(function(collection) {
+      // DONT FORGET TO UPDATE THIS AFTER UPDATING SINGLE COLLECTION
       $state.go('singleCollection', {
         url: collection.collection_url
       });
