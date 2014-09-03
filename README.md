@@ -22,8 +22,7 @@ Table of Contents
 1. [Contributing](#contributing)
 
 ## Usage
-
-> Some usage instructions
+> Setup the local database and run locally or deploy to an Azure instance and deployment script will run initialization tasks.
 
 ## Requirements
 
@@ -34,6 +33,15 @@ Table of Contents
 
 ## Development
 
+Run the following command to start the local development environment:
+```sh
+grunt dev
+```
+Run the following command to run JsHint and Mocha-test suite:
+```sh
+grunt test
+```
+
 ### Installing Dependencies
 
 From within the root directory:
@@ -43,6 +51,16 @@ sudo npm install -g bower
 npm install
 bower install
 ```
+
+####Steps to setup a local MySql database:
+1. Install MySQL; do not install with a password
+2. Go to MySQL commandline using - 'mysql -u root'
+3. From MySQL commandline create database called 'curates'
+4. Check connection details in server/dbconfig.js is correct for your particular environment.
+   ie. use environmental url, not localhost when deploying.
+4. Run 'node server/dbconfig.js';
+5. Now your db, table schema are set up!
+Refer to [wiki for more detailed information](https://github.com/Next-Mars/curates/wiki/Database-Schema-Summary-%28Work-In-Progress%29).
 
 ### Roadmap
 
