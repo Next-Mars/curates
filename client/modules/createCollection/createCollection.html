@@ -3,14 +3,30 @@
     <h2>Log in to create a collection.</h2>
   </div>
   <div class="createCollection" ng-if="loggedIn">
-    <form name="create" class="createCollectionForm" ng-submit="create()">
+    <form name="create" class="createCollectionForm" ng-submit="submitCreate()">
       <label>Title:
         <input name="title" type="text" ng-model="collection.title" />
       </label>
+      <br />Url: {{ collection.collection_url }}
+      <br />
       <label>Description:
         <input name="description" type="text" ng-model="collection.description" />
       </label>
-      <button name="submit" type="submit">Next: Add Links</button>
+      <br />
+      Links:
+      <div class="editLink" ng-repeat="link in collection.links">
+        <label>Title:
+          <input type="text" ng-model="collection.links[$index].title" />
+        </label>
+        <label>Url:
+          <input type="url" ng-model="collection.links[$index].url" />
+        </label>
+        <label>Description: 
+          <input type="text" ng-model="collection.links[$index].description" />
+        </label>
+      </div>
+      <button type="button" ng-click="addLink()">Add Link</button>
+      <button name="submit" type="submit">Create!</button>
     </form>
   </div>
 

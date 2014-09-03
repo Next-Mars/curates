@@ -7,7 +7,7 @@
   </div>
   <div class="loggedIn" ng-if="user.loggedIn">
     <form id="logout" ng-submit="logout()">
-      Welcome {{ user.name }}!!
+      Welcome {{ user.username }}!!
       <button type="submit" name="submit">Log Out</button>
     </form>
     <a ui-sref="createCollection">Create a new Collection</a><br />

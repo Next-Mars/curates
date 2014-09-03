@@ -10,7 +10,9 @@ angular.module('curates.personalCollectionList', [])
 
 .controller('personalCollectionsList', function($scope, $stateParams, collectionFactory, userManagement) {
   var user = userManagement.user;
-  if (user.loggedIn) {
-    $scope.collections = collectionFactory.getUserCollections(user.name);
-  }
+  console.log(user.username);
+  collectionFactory.getUserCollections(user.username).then(function(collections) {
+    console.log(collections);
+    $scope.collections = collections;
+  })
 });
