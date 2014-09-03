@@ -16,6 +16,16 @@ exports.createCollectionModelObj = function(data) {
   return result;
 };
 
+exports.createLinkModelObj = function(link_id, c_id, url, title, description) {
+  var result = {};
+  result.id = link_id;
+  result.c_id = c_id;
+  result.link_url = url;
+  result.link_title = title;
+  result.description = description;
+  return result;
+}
+
 exports.userExists = function(user, callback) {
   var username = user.username;
 
