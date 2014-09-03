@@ -24,9 +24,20 @@ describe('', function() {
 	        };
 	      });
 
+	    db.knex('users')
+	      .where('username', '=', 'test2')
+	      .del()
+	      .catch(function(error) {
+	      	console.log("Error**********************");
+	        throw {
+	          type: 'DatabaseError',
+	          message: 'Failed to create test setup data'
+	        };
+	      });
+
 	    // delete user Svnh from db so it can be created later for the test
 	    db.knex('collections')
-	      .where('title', '=', 'collection owned by test')
+	      .where('title', '=', 'Angular collection')
 	      .del()
 	      .catch(function(error) {
 	        // uncomment when writing authentication tests
@@ -49,7 +60,7 @@ describe('', function() {
 	      });
 	});
 
-	describe('New user: ', function(){
+	describe('When user isn\'t in database: ', function(){
 
 		it("Signup creates a user record", function(done){
 			var options = {
@@ -67,7 +78,6 @@ describe('', function() {
 				db.knex('users')
 		          .where('username', '=', 'test')
 		          .then(function(res) {
-		          	console.log(res);
 		          	if(res[0] && res[0]['username']){
 		          		var username = res[0]['username'];
 		          		var password = res[0]['password_hash'];
@@ -81,12 +91,11 @@ describe('', function() {
 		          	done();
 				  });
 		    });
-
 		});
 
 	});
 
-	describe('Retrieve a user: ', function(){
+	describe('When user is already in database: ', function(){
 
 		beforeEach(function(done){
 			new User({'username': 'test',
@@ -113,11 +122,84 @@ describe('', function() {
 		    	done();
 		    });
 		});
+
+		it("non-Signuped user should not be able to be retrieved", function(done){
+		    var options = {
+		    	'method': 'GET',
+		    	'uri': 'http://127.0.0.1:3000/user/test2'
+		    };
+
+		    request(options, function(error, res, body) {
+		    	expect(body).to.equal("User doesn't exist");
+		    	done();
+		    });
+		});
+
+		it("user should not be created twice", function(){
+			var options = {
+				'method': 'POST',
+		        'uri': 'http://127.0.0.1:3000/user',
+		        'json': {
+		          'username': 'test',
+		          'password': 'test',
+		          'githubHandle': 'handle',
+		          'email': '123@gmail.com'
+				}
+			};
+
+			request(options, function(error, res, body) {
+		    	expect(body).to.equal("User already exists");
+		    	done();
+		    });
+		});
 	});
 
-	describe("Create collections", function(){
+	// describe("Create collections", function(){
 		
-	})
+	// 	beforeEach(function(done){
+	// 		new User({'username': 'test',
+	// 		          'password_hash': 'test',
+	// 		          'github': 'handle',
+	// 		          'email': '123@gmail.com'
+	// 		      }).save().then(function(){
+	// 		      	done();
+	// 		      });
+	// 	});
+
+	// 	it("user should be able to create a collection", function(){
+	// 		var options = {
+	// 			'method': 'POST',
+	// 	        'uri': 'http://127.0.0.1:3000/collection',
+	// 	        'json': {
+	// 	          'title': 'Angular collection',
+	// 	          'url': 'www.angular.com',
+	// 	          'description': 'angular is awesome',
+	// 	          'user': 'test',
+	// 	          'links': []
+	// 			}
+	// 		}
+
+	// 		request(options, function(error, res, body) {
+	// 			db.knex('collections')
+	// 			  .where('title', '=', 'Angular collection')
+	// 			  // .join('users', 'collections.u_id', '=', 'users.id')
+	// 	          // .select('collections.id', 'collections.title', 'collections.collection_url', 'collections.stars', 'collections.description', 'users.username')
+	// 	          .then(function(res) {
+	// 	          	if(res[0] && res[0]['title']){
+	// 	          		var title = res[0]['title'];
+	// 	          		var url = res[0]['collection_url'];
+	// 	          		var description = res[0]['description'];
+	// 	          		// var username = res[0]['username'];
+	// 	          	}
+	// 	          	// expect(username).to.equal('test');
+	// 	          	expect(title).to.include('bo');
+	// 	          	// expect(githubHandle).to.equal('handle');
+	// 	          	// expect(email).to.equal('123@gmail.com');
+	// 	          	done();
+	// 			  });
+	// 		});
+	// 	});
+	// });
 
 
 });
