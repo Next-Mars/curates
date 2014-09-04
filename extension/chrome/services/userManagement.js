@@ -1,16 +1,35 @@
 angular.module('curates.services', [])
-.factory('userManagement', function() {
+.factory('userManagement', function($http) {
 
-  var user = {
-    name: '',
-    loggedIn: false
-  };
+  var user = {};
+  user.username = null;
+  user.loggedIn = false;
   var login = function(name) {
-    user.name = name;
-    user.loggedIn = true;
+    // Check if user exists
+    $http({
+      method: 'GET',
+      url: '/user/' + name
+    }).success(function(data) {
+      user.username = data.username;
+      user.loggedIn = true;
+    }).error(function(data) {
+      // User not yet registered, register them
+      $http({
+        method: 'POST',
+        url: '/user',
+        data: { username: name }
+      }).success(function(data) {
+        // data is user id
+        user.username = name;
+        user.loggedIn = true;
+        console.log(data);
+      }).error(function(data) {
+        console.log('failed to create user', data);
+      });
+    });
   };
   var logout = function() {
-    user.name = '';
+    user.username = null;
     user.loggedIn = false;
   };
   return {

@@ -8,25 +8,41 @@ angular.module('curates.createCollection', [])
     });
 })
 
-.controller('createCollectionController', function($scope, $state, userManagement, collectionFactory) {
+.controller('createCollectionController', function($scope, $rootScope, $state, userManagement, collectionFactory) {
+
   // Only loggedIn users can create collections
   $scope.loggedIn = userManagement.user.loggedIn;
 
-  // New empty collection
+  // Initialize new collection
   $scope.collection = {};
-  $scope.collection.user = userManagement.user.name;
+  $scope.collection.user = userManagement.user.username;
+  $scope.collection.links = [];
+  $scope.collection.title = '';
+  $scope.collection.description = '';
 
+  //  the following code generates a url by ommitting invalid url charachters
+  // (not currently exhaustive!)
+  // The characters between the [] and after ^ are allowed characters
+  $scope.$watch(
+    function() { return $scope.collection.title; }, 
+    function() {
+      $scope.collection.collection_url = '/user/' + $scope.collection.user + '/' +
+        $scope.collection.title.replace(/[^A-Za-z0-9\-]/g,'').toLowerCase();
+    }
+  );
   // called on submitting the form
-  $scope.create = function() {
-    // Setting the url quick and dirty. 
-    // We need to implement a function to generate urls
-    $scope.collection.url = $scope.collection.user + '/' + $scope.collection.title;
-    collectionFactory.createCollection($scope.collection);
+  $scope.submitCreate = function() {
+    collectionFactory.createCollection($scope.collection).then(function(collection) {
+      // redirect the user to the collection they just created
+      var url = collection.collection_url.split('/');
+      $state.go('singleCollection', {
+        user: url[2],
+        collection: url[3]
+      });
+    });
+  };
 
-    // This is where I stopped. 
-    // Edit collection and createCollection will share
-    // a lot of the same functionality. Devise a way to 
-    // share code! There are many options.
-
-  }
+  $scope.addLink = function() {
+    $scope.collection.links.push({url: '', title: '', description: ''});
+  };
 })

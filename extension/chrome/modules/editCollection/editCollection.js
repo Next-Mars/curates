@@ -14,7 +14,7 @@ angular.module('curates.editCollection', [])
   $scope.toRemove = [];
 
   // if this is the logged in users page, enable editting
-  if (userManagement.user.name === $stateParams.user) {
+  if (userManagement.user.username === $stateParams.user) {
     $scope.editable = true;
 
     // Retrieve the collection data from the server
