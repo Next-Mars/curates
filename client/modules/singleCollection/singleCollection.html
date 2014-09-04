@@ -15,7 +15,8 @@
         <!-- Edit should be a button -->
         <button ng-if="!isUser" ng-click="clone()">Clone</button>
         <p>{{ collection.stars }}</p>
-        <button ng-click="upVote()">Upvote</button>
+        <button ng-click="upVote()" ng-if="notYetUpvoted">Upvote</button>
+        <p ng-if="!notYetUpvoted"><b>You have liked this collection!<b/></p>
       </div>
     </div>
   </div>
