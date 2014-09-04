@@ -1,0 +1,18 @@
+<div ng-controller="createCollectionController">
+  <div class="notLoggedIn" ng-if="!loggedIn">
+    <h2>Log in to create a collection.</h2>
+  </div>
+  <div class="createCollection" ng-if="loggedIn">
+    <form name="create" class="createCollectionForm" ng-submit="create()">
+      <label>Title:
+        <input name="title" type="text" ng-model="collection.title" />
+      </label>
+      <label>Description:
+        <input name="description" type="text" ng-model="collection.description" />
+      </label>
+      <button name="submit" type="submit">Next: Add Links</button>
+    </form>
+  </div>
+
+
+</div>
