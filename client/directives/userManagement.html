@@ -1,8 +1,8 @@
 <div class="userManagement">
   <div class="notLoggedIn" ng-if="!loggedIn">
     <form id="signin" ng-submit="login(name)">
-      <input type="text" name="username" ng-model="name"></input>
-      <button type="submit" name="submit">Log in</button>
+        <button type="submit" class="btn btn-success btn-sm" name="submit">Log in</button>
+      <input type="text" placeholder="Username" name="username" ng-model="name"></input>
     </form>
   </div>
   <div class="loggedIn" ng-if="loggedIn">
@@ -13,5 +13,4 @@
     <a ng-href="#/create">Create a new Collection</a><br />
     <a ui-sref="myCollections">Your Collections</a><br />
   </div>
-  <hr>
 </div>

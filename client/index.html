@@ -1,22 +1,30 @@
 <html>
 <body ng-app="curates">
-  <script src="lib/underscore/underscore.js"></script>
-  <script src="lib/angular/angular.js"></script>
-  <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
-  <script src="modules/myCollections/myCollections.js"></script>
-  <script src="modules/singleCollection/singleCollection.js"></script>
-  <script src="modules/collectionsList/collectionsList.js"></script>
-  <script src="modules/editCollection/editCollection.js"></script>
-  <script src="app.js"></script>
-  <script src="services/userManagement.js"></script>
-  <script src="directives/userManagement.js"></script>
-  <script src="services/collectionFactory.js"></script>
-  <script src="directives/collectionMeta.js"></script>
-  <script src="modules/createCollection/createCollection.js"></script>
-  <h1><a ng-href='/'>Curates!</a></h1>
-  <div ng-controller="userMangamentController">
-    <user-management />
+  <div class="container">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <script src="lib/underscore/underscore.js"></script>
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="modules/myCollections/myCollections.js"></script>
+    <script src="modules/singleCollection/singleCollection.js"></script>
+    <script src="modules/collectionsList/collectionsList.js"></script>
+    <script src="modules/editCollection/editCollection.js"></script>
+    <script src="app.js"></script>
+    <script src="services/userManagement.js"></script>
+    <script src="directives/userManagement.js"></script>
+    <script src="services/collectionFactory.js"></script>
+    <script src="directives/collectionMeta.js"></script>
+    <script src="modules/createCollection/createCollection.js"></script>
+    <h1><a ng-href='/'>Curates!</a></h1>
+    <div class="row">
+      <div class="col-md-9"></div>
+      <!-- above is empty div to float usermanagement to right -->
+      <div ng-controller="userManagementController">
+        <user-management />
+      </div>
+    </div>
+    <hr>
+    <div ui-view></div>
   </div>
-  <div ui-view></div>
 </body>
 </html>

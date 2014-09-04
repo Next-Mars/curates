@@ -18,6 +18,7 @@
   "dependencies": {
     "angular": "~1.2.23",
     "angular-ui-router": "~0.2.11",
-    "underscore": "~1.7.0"
+    "underscore": "~1.7.0",
+    "bootstrap": "~3.2.0"
   }
 }
