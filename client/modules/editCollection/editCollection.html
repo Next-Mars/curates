@@ -1,5 +1,5 @@
 <div ng-controller="editCollectionController">
-  <h2>{{ collection.title }}<small> by {{ collection.user }}</h2>
+  <h2>{{ collection.title }}<small> by {{ collection.user.givenName }}</h2>
   <div class="wrongUser" ng-if="!editable">
     <h2>You cannot edit this, its not your collection. Fork it instead</h2>
   </div>
