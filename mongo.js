@@ -100,6 +100,20 @@ mongo.update = function(collection) {
   }
 };
 
+// Adds a link to the given document
+// Expects data to have _id and links properties:
+//  {
+//    _id: the collection to add to
+//    links: [
+//      { url: String, title: String, description: String }
+//    ]
+//  }
+// Can add an arbitrary number of links
+mongo.addLink = function(data) {
+  return Collection.findByIdAndUpdate(data._id, 
+    { $push: { links: { $each: data.links }}}).exec();
+};
+
 // Returns a promise that resolves to an array of objects, each
 // containing the meta data of all the collections in the database
 mongo.getAllCollections = function() {
