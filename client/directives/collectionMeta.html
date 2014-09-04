@@ -3,7 +3,7 @@
   <div class="votes-user votes-user-2 clearfix">
     <div class="votes-box votes-box-2 clearfix">
       <p class="votes-text votes-text-2">
-        <span>12</span>
+        <span>{{collection.stars}}</span>
       </p>
       <p class="vote-num">
         <span>votes</span>
@@ -16,7 +16,7 @@
   </div>
   <div class="collection-text collection-text-2 clearfix">
     <p class="collection-title">
-      <a ng-href="#/{{ collection.url }}">{{ collection.title }}</a>   +{{collection.stars}}
+      <a ng-href="#/{{ collection.url }}">{{ collection.title }}</a>
     </p>
     <p class="collection-description">{{ collection.description }}</p>
   </div>
