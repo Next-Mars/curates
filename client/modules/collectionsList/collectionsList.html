@@ -2,5 +2,5 @@
 
   Search Collection:<input ng-model="query">
 
-  <collection-meta ng-repeat="collection in listData | filter:query" collection="collection" />
+  <collection-meta ng-repeat="collection in listData | filter:query | orderBy:predicate" collection="collection" />
 </div>
