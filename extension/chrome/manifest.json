@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+
+  "name": "curates",
+  "description": "This extension allows you to easilly use curates.io.",
+  "version": "1.0",
+
+  "permissions": [
+    "tabs"
+  ],
+  "browser_action": {
+    "default_icon": "bookmark.png",
+    "default_popup": "index.html"
+  }
+}
