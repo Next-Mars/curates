@@ -1,4 +1,3 @@
-
 // Establish connection with the server
 var mongoose = require('mongoose');
 mongoose.connect(process.env.CURATES_DB_URI);
@@ -15,19 +14,44 @@ db.once('open', function() {
 
 // Set up Schema
 var collectionSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  url: { type: String, required: true },
-  user: { type: { 
-    provider: String, 
-    id: String,
-    fullName: String,
-    givenName: String
-  }, required: true },
-  description: { type: String, required: true },
-  links: [{ url: String, title: String, description: String }],
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
-  stars: { type: Number, default: 0 }
+  title: {
+    type: String,
+    required: true
+  },
+  url: {
+    type: String,
+    required: true
+  },
+  user: {
+    type: {
+      provider: String,
+      id: String,
+      fullName: String,
+      givenName: String
+    },
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
+  links: [{
+    url: String,
+    title: String,
+    description: String
+  }],
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now
+  },
+  stars: {
+    type: Number,
+    default: 0
+  }
 });
 var Collection = mongoose.model('Collection', collectionSchema);
 
@@ -40,7 +64,7 @@ var mongo = {};
 // An function for mapping a collection title to a url
 mongo.mapTitleToUrl = function(title) {
   // These are the allowed charachters, all others are removed
-  return title.replace(/[^A-Za-z0-9\-]/g,'').toLowerCase();
+  return title.replace(/[^A-Za-z0-9\-]/g, '').toLowerCase();
 };
 
 // Attempts to create a new collection
@@ -70,14 +94,18 @@ mongo.findById = function(id) {
 // Attempts to find ONE collection by the given title
 // Returns a promise
 mongo.findByTitle = function(title) {
-  return Collection.findOne({ title: title }).exec();
+  return Collection.findOne({
+    title: title
+  }).exec();
 };
 
 // Attempts to find ONE collection with the given url
 // There should never be multiple collections with the same url
 // Returns a promise
 mongo.findByUrl = function(url) {
-  return Collection.findOne({ url: url }).exec();
+  return Collection.findOne({
+    url: url
+  }).exec();
 };
 
 // Saves changes of the given collection to the database
@@ -93,8 +121,9 @@ mongo.update = function(collection) {
   } else {
     // find by title (mostly to make testing easier)
     collection.updatedAt = Date.now();
-    return Collection.findOneAndUpdate(
-      {title: collection.title},
+    return Collection.findOneAndUpdate({
+        title: collection.title
+      },
       collection
     ).exec();
   }
@@ -110,8 +139,13 @@ mongo.update = function(collection) {
 //  }
 // Can add an arbitrary number of links
 mongo.addLink = function(data) {
-  return Collection.findByIdAndUpdate(data._id, 
-    { $push: { links: { $each: data.links }}}).exec();
+  return Collection.findByIdAndUpdate(data._id, {
+    $push: {
+      links: {
+        $each: data.links
+      }
+    }
+  }).exec();
 };
 
 // Returns a promise that resolves to an array of objects, each
@@ -121,17 +155,13 @@ mongo.getAllCollections = function() {
 };
 
 // Returns a promise that resolves to an array of objects, each
-// containing the meta data of all the collections created by the 
+// containing the meta data of all the collections created by the
 // given user
 mongo.getUserCollections = function(user) {
-  return Collection.find({ 
-    'user.provider': user.provider, 
-    'user.id': user.id 
+  return Collection.find({
+    'user.provider': user.provider,
+    'user.id': user.id
   }, metaFields).exec();
 };
-
-
-
-
 
 module.exports = mongo;
