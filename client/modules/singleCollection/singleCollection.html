@@ -2,6 +2,10 @@
   <h2>{{ collection.title }}<small> by {{ collection.user.givenName }}</h2>
   <p>{{ collection.description }}</p>
   <a ng-href="#/{{ collection.url }}/edit" ng-if="isUser">Edit</a>
+  <!-- Edit should be a button -->
+  <button ng-if="!isUser" ng-click="clone()">Clone</button>
+  <p>{{ collection.stars }}</p>
+  <button ng-click="upVote()">Upvote</button>
   <div class="collectionLinks" ng-repeat="link in collection.links">
     <h3><a ng-href="{{ link.url }}">{{ link.title }}</a></h3>
     {{ link.description }}
