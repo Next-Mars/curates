@@ -1,16 +1,18 @@
 <div class="userManagement">
-  <div class="notLoggedIn" ng-if="!loggedIn">
-    <form id="signin" ng-submit="login(name)">
-        <button type="submit" class="btn btn-success btn-sm" name="submit">Log in</button>
-      <input type="text" placeholder="Username" name="username" ng-model="name"></input>
-    </form>
-  </div>
   <div class="loggedIn" ng-if="loggedIn">
-    <form id="logout" ng-submit="logout()">
-      Welcome {{ user.givenName }}!!
-      <button type="submit" name="submit">Log Out</button>
+    <form class="form-inline" role="form" id="logout" ng-submit="logout()">
+      <button class="btn btn-info logOutBtn" type="submit" name="submit">Log Out</button>
     </form>
+    <p><b>Welcome {{ user.givenName }}!</b></p>
     <a ng-href="#/create">Create a new Collection</a><br />
     <a ui-sref="myCollections">Your Collections</a><br />
+  </div>
+  <div class="notLoggedIn" ng-if="!loggedIn">
+    <form class="form-inline" role="form" id="signin" ng-submit="login(name)" >
+      <div class="form-group">
+        <button class="btn btn-success" type="submit" name="submit"><b>Log in</b></button>
+        <input class="form-control" type="text" placeholder="Username" name="username" ng-model="name"></input>
+      </div>
+    </form>
   </div>
 </div>

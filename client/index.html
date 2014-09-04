@@ -15,9 +15,10 @@
     <script src="services/collectionFactory.js"></script>
     <script src="directives/collectionMeta.js"></script>
     <script src="modules/createCollection/createCollection.js"></script>
-    <h1><a ng-href='/'>Curates!</a></h1>
     <div class="row">
-      <div class="col-md-9"></div>
+      <h1><a ng-href='/'>Curates!</a></h1>
+    </div>
+     <!--  <div class="col-md-8"></div> -->
       <!-- above is empty div to float usermanagement to right -->
       <div ng-controller="userManagementController">
         <user-management />
@@ -25,6 +26,5 @@
     </div>
     <hr>
     <div ui-view></div>
-  </div>
 </body>
 </html>

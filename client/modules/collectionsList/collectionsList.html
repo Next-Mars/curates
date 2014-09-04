@@ -1,6 +1,7 @@
 <div ng-controller="collectionsListController">
 
   Search Collection:<input ng-model="query">
-
+  <br>
+  <br>
   <collection-meta ng-repeat="collection in listData | filter:query | orderBy:predicate" collection="collection" />
 </div>
