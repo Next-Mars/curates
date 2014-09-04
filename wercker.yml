@@ -7,6 +7,11 @@ build:
     - npm-install
     # A step that executes `grunt test` command
     - script:
+        name: install grunt
+        code: npm install grunt |
+          echo "grunt test finished"
+    # A step that executes `grunt test` command
+    - script:
         name: run grunt test
         code: grunt test |
           echo "grunt test finished"
