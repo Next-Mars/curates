@@ -38,6 +38,13 @@ app.post('/api/collection/update', function(req, res) {
   });
 });
 
+// add a link to collection
+app.post('/api/collection/addlink', function(req, res) {
+  mongo.addLink(req.body).then(function(collection) {
+    res.end(JSON.stringify(collection));
+  });
+});
+
 // retrieve a collection by url
 app.get('/api/collection/:url', function(req, res) {
   mongo.findByUrl(req.params.url).then(function(collection) {
