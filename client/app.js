@@ -1,12 +1,12 @@
 angular.module('curates', [
   'ui.router',
   'curates.collectionsList',
+  'curates.myCollections',
+  'curates.createCollection',
   'curates.singleCollection',
   'curates.editCollection',
   'curates.services',
-  'curates.collectionFactory',
-  'curates.personalCollectionList',
-  'curates.createCollection'
+  'curates.collectionFactory'
 ])
 
 .config(function($stateProvider, $urlRouterProvider) {

@@ -1,45 +1,47 @@
 angular.module('curates.services', [])
-.factory('userManagement', function($http) {
+.factory('userManagement', function() {
 
   var user = {};
-  user.username = null;
-  user.loggedIn = false;
+  var loggedIn = false;
+  var initUser = function() {
+    user.givenName = '';
+    user.id = '';
+    user.fullName = '';
+    user.provider = '';
+    loggedIn = false;
+  }
   var login = function(name) {
-    // Check if user exists
-    $http({
-      method: 'GET',
-      url: '/user/' + name
-    }).success(function(data) {
-      user.username = data.username;
-      user.loggedIn = true;
-    }).error(function(data) {
-      // User not yet registered, register them
-      $http({
-        method: 'POST',
-        url: '/user',
-        data: { username: name }
-      }).success(function(data) {
-        // data is user id
-        user.username = name;
-        user.loggedIn = true;
-        console.log(data);
-      }).error(function(data) {
-        console.log('failed to create user', data);
-      });
-    });
+    console.log(name);
+    user.givenName = name;
+    user.id = name;
+    user.fullName = name;
+    user.provider = 'test';
   };
   var logout = function() {
-    user.username = null;
-    user.loggedIn = false;
+    initUser();
+  };
+  var validateUser = function(target) {
+    return target.provider === user.provider && target.id === user.id
   };
   return {
     user: user,
+    loggedIn: loggedIn,
     login: login,
-    logout: logout
+    logout: logout,
+    validateUser: validateUser
   };
 })
 .controller('userMangamentController', function($scope, userManagement) {
   $scope.user = userManagement.user;
-  $scope.login = userManagement.login;
-  $scope.logout = userManagement.logout;
+  $scope.loggedIn = userManagement.loggedIn;
+  $scope.login = function(name) {
+    userManagement.loggedIn = true;
+    $scope.loggedIn = true;
+    userManagement.login(name);
+  };
+  $scope.logout = function() {
+    userManagement.loggedIn = false;
+    $scope.loggedIn = false;
+    userManagement.logout();
+  }
 })

@@ -3,7 +3,7 @@ angular.module('curates.editCollection', [])
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
   .state('editCollection', {
-  	url: '/:user/:collection/edit',
+  	url: '/:collectionUrl/edit',
   	templateUrl: 'modules/editCollection/editCollection.html'
   });
 })
@@ -13,14 +13,14 @@ angular.module('curates.editCollection', [])
   $scope.editable = false;
   $scope.toRemove = [];
 
-  // if this is the logged in users page, enable editting
-  if (userManagement.user.username === $stateParams.user) {
-    $scope.editable = true;
-
-    // Retrieve the collection data from the server
-    var url = $stateParams.user + '/' + $stateParams.collection;
-    $scope.collection = collectionFactory.getCollection(url);
-  }
+  // Retrieve collection
+  collectionFactory.getCollection($stateParams.collectionUrl).then(function(collection) {
+    // Check that this is the current users collection
+    if (userManagement.validateUser(collection.user)) {
+      $scope.editable = true;
+      $scope.collection = collection;
+    }
+  });
 
   // Called when the form is submitted
   $scope.submitCollectionEdit = function() {
@@ -30,13 +30,11 @@ angular.module('curates.editCollection', [])
     });
 
     // send the updated collection to the server
-    collectionFactory.updateCollection($scope.collection);
-
-    // redirect the user back to the singleCollection view of the collection they just editted
-    var url = $scope.collection.url.split('/');
-    $state.go('singleCollection', { 
-      user: url[0],
-      collection: url[1]
+    collectionFactory.updateCollection($scope.collection).then(function(collection) {
+      // redirect user back to singleCollection view
+      $state.go('singleCollection', {
+        url: collection.url
+      });
     });
   };
 
@@ -53,5 +51,5 @@ angular.module('curates.editCollection', [])
   // add a link to this collection
   $scope.addLink = function() {
     $scope.collection.links.push({url: '', title: '', description: ''});
-  }
+  };
 });

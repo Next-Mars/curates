@@ -2,22 +2,21 @@ angular.module('curates.collectionFactory', [])
 .factory('collectionFactory', function($http){
 
   var getCollection = function(url) {
-    console.log(url);
     return $http({
       method: 'GET',
-      url: url
-    }).success(function(collection) {
-      console.log(collection);
-      return collection;
-    }).error(function(error) {
-      console.log(error);
+      url: '/api/collection/' + url
+    }).then(function(response) {
+      if (response.data === 'null') {
+        return null;
+      }
+      return response.data;
     });
   };
 
   var getListData = function() {
     return $http({
       method: 'GET',
-      url: '/all'
+      url: '/api/all'
     }).then(function(response) {
       return response.data;
     });
@@ -26,17 +25,16 @@ angular.module('curates.collectionFactory', [])
   var getUserCollections = function(user) {
     return $http({
       method: 'GET',
-      url: '/user/' + user
+      url: '/api/user/' + user.provider + '/' + user.id
     }).then(function(response) {
-      console.log(response.data.collections);
-      return response.data.collections;
+      return response.data;
     });
   };
 
   var updateCollection = function(collection) {
     return $http({
       method: 'POST',
-      url: 'collection/' + collection.id,
+      url: '/api/collection/update',
       data: collection
     }).then(function(response) {
       return response.data;
@@ -44,17 +42,14 @@ angular.module('curates.collectionFactory', [])
   };
 
   var createCollection = function(collection) {
-    collection.url = collection.collection_url;
-    delete collection.collection_url;
-    console.log(collection);
     return $http({
       method: 'POST',
-      url: 'collection',
-      data: JSON.stringify(collection)
+      url: '/api/collection/create',
+      data: collection
     }).then(function(response) {
       return response.data;
     });
-  };
+  }
 
   return {
     getCollection: getCollection,

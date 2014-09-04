@@ -8,8 +8,7 @@ angular.module('curates.collectionsList', [])
   });
 })
 .controller('collectionsListController', function($scope, collectionFactory) {
-  collectionFactory.getListData().then(function(data) {
-    console.log(data.collections);
-    $scope.listData = data.collections;
-  });
+  collectionFactory.getListData().then(function(collections) {
+    $scope.listData = collections;
+  })
 });

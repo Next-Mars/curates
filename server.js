@@ -1,23 +1,12 @@
+var mongo = require('./mongo');
 var express = require('express');
 var session = require('express-session');
 var url = require('url');
 var bodyParser = require('body-parser');
-var dbUtils = require('./server/utils/dbUtils');
-
-var db = require('./server/dbconfig');
-var User = require('./server/models/user');
-var Link = require('./server/models/link');
-var Collection = require('./server/models/collection');
 var cookieParser = require('cookie-parser');
 var port = process.env.PORT || 3000;
 
 app = express();
-
-//probably uneeded b/c templates generated client side
-// var partials = require('express-partials');
-// app.set('views', __dirname + '/views');
-// app.set('view engine', 'ejs');
-// // app.use(partials());
 
 //middleware
 app.use(bodyParser.json());
@@ -33,248 +22,53 @@ app.use(session({
 //serve static files in client when referred to in html
 app.use(express.static(__dirname + '/client'));
 
-//routes for restful endpoint, response with JSON data queried from db
-
-// creating a new collection with new urls;
-app.post('/collection', function(req, res) {
-  console.log("req body ", req.body);
-  //need to check if user is signed in/authorised;
-
-  var data = req.body;
-
-  var collectionToBeSavedOrUpdated = dbUtils.createCollectionModelObj(data);
-
-  var linksToBeSaved = data.links; //array of link objects each { url: url, description: description, title: title}
-  //fetch the user and the user id
-  new User({
-    username: data.user
-  })
-    .fetch()
-    .then(function(user) {
-      collectionToBeSavedOrUpdated.u_id = user.get('id');
-      dbUtils.collectionExists(collectionToBeSavedOrUpdated,
-        function(collection_id) {
-          collectionToBeSavedOrUpdated.id = collection_id;
-          new Collection(collectionToBeSavedOrUpdated)
-            .save()
-            .then(function(collection) {
-              console.log("Saved collection: ", collection);
-              var c_id = collection.get('id');
-              console.log("this is the c_id: ", c_id);
-              linksToBeSaved.forEach(function(linkObj) {
-                var url = linkObj.url;
-                dbUtils.linkExistsInSpecificCollection(url, c_id, function(link_id) {
-                  var linkDetails = {
-                    id: link_id,
-                    c_id: c_id,
-                    link_url: linkObj.url,
-                    link_title: linkObj.title,
-                    description: linkObj.description
-                  };
-                  new Link(linkDetails)
-                    .save()
-                    .then(function(link) {
-                      console.log("successfully saved links: ");
-                    })
-                    .catch(function(error) {
-                      res.status(400).end("Cannot create collection");
-                    });
-                })
-              });
-              res.end(JSON.stringify(collection));
-            })
-            .catch(function(error) {
-              res.status(400).end("Cannot create collection");
-            });
-        });
-    });
-});
-
-//updating an existing collection
-
-app.post('/collection/:collectionID', function(req, res) {
-  var collectionID = req.params.collectionID
-  var data = req.body;
-  console.log("data   ", data);
-  var collectionFieldsToUpdate = {};
-
-  for (var k in data) {
-    if (typeof data[k] === 'string' && k !== 'url') { // need to escape links array as irrevalnt to COLLECTIONS update
-      // also escape data.url as we do not want to update a collection's url
-      collectionFieldsToUpdate[k] = data[k];
-    }
-  }
-  console.log("collectionFields Update: ", collectionFieldsToUpdate);
-  //function to updateCollections
-
-  new Collection({
-    id: collectionID
-  }).save(collectionFieldsToUpdate, { //accounts for scenarios when user is updating meta data of links
-    patch: true // patch just updates the Collection Entry with what is CollectionFieldsToUpdate
-  })
-    .then(function(collectionUpdated) {
-      if (data.links) {
-        data.links.forEach(function(linkObj) {
-          var url = linkObj.url;
-          var linkToBeUpdatedOrSaved = {
-            link_url: linkObj.url,
-            link_title: linkObj.title,
-            description: linkObj.description,
-            c_id: collectionID
-          };
-          dbUtils.linkExistsInSpecificCollection(url, collectionID, function(l_id) {
-            linkToBeUpdatedOrSaved.id = l_id;
-            new Link(linkToBeUpdatedOrSaved)
-              .save()
-              .then(function(link) {
-                console.log("successfully updated link: ", link);
-              })
-              .catch(function(error) {
-                res.status(400).end("Cannot update collection");
-              })
-          });
-        });
-      }
-      //need to refactor below to deal with asynchronous save
-      console.log("xxxx about to post end");
-      res.end(JSON.stringify(collectionUpdated));
-    })
-    .catch(function(error) {
-      res.status(400).end("Cannot update collection");
-    })
-})
-
-//create  a new user
-
-app.post('/user', function(req, res) {
-  console.log("req: ", req.body);
-  var data = req.body;
-  var userToBeSaved = {
-    username: data.username,
-    github: data.githubHandle,
-    email: data.email,
-    password_hash: data.password // in future will hash passwords before saving
-  };
-  dbUtils.userExists(userToBeSaved, function(u_id) {
-    if (!u_id) {
-      userToBeSaved.id = u_id;
-      new User(userToBeSaved)
-        .save()
-        .then(function(user) {
-          console.log("successfully SAVED USER into db: ", user);
-          res.end(JSON.stringify({
-            id: user.id
-          }));
-        })
-    } else {
-      res.status(405).end("User already exists");
-    }
+// add new collection endpoint
+// responds with null if collection can't be added
+app.post('/api/collection/create', function(req, res) {
+  mongo.create(req.body).then(function(collection) {
+    res.end(JSON.stringify(collection));
   });
 });
 
-//GET LINKS OF SPECIFIC COLLECTION
-app.get('/user/:username/:collection', function(req, res) {
-  var url = req.path;
-  var username = url.slice(url.indexOf("/", 1) + 1, url.lastIndexOf("/"));
-
-  var data;
-  new Collection({
-    collection_url: url
-  })
-    .fetch()
-    .then(function(result) {
-      var collection = result.attributes;
-      data = {
-        c_id: collection.id, // return collection_id to client for the target collection
-        title: collection.title,
-        url: collection.collection_url,
-        description: collection.description,
-        user: username,
-        stars: collection.stars
-      };
-      new Link()
-        .query('where', 'c_id', '=', collection.id)
-        .fetchAll()
-        .then(function(collectionFound) {
-          data.links = collectionFound;
-          res.send(JSON.stringify(data));
-        })
-        .catch(function(err) {
-          console.error(err);
-          res.status(400).end(JSON.stringify(err));
-        })
-    })
-    .catch(function(err) {
-      console.error(err);
-      res.status(400).end(JSON.stringify(err));
-    })
+// update collection endpoint
+// responds with the updated collection
+app.post('/api/collection/update', function(req, res) {
+  mongo.update(req.body).then(function(collection) {
+    res.end(JSON.stringify(collection));
+  });
 });
 
-//get collection from all users
-
-app.get('/user/:user', function(req, res) {
-  // console.log("this is FOR BO req params ", req.params);
-  var url = req.path;
-  var username = url.slice(url.indexOf("/", 1) + 1);
-
-  new User({
-    username: username
-  })
-    .fetch()
-    .then(function(fetchedUser) {
-      if (fetchedUser) {
-        result = {
-          username: fetchedUser.attributes.username,
-          githubHandle: fetchedUser.attributes.github,
-          email: fetchedUser.attributes.email,
-          collections: []
-        }
-        var user_id = fetchedUser.get('id');
-        new Collection()
-          .fetchAll({
-            u_id: user_id
-          })
-          .then(function(collection_list) {
-            for (var i = 0; i < collection_list.models.length; i++) {
-              var thisCollection = collection_list.models[i].attributes;
-              var eachCollection = {
-                title: thisCollection.title,
-                url: thisCollection.collection_url,
-                description: thisCollection.description,
-                user: username,
-                stars: thisCollection.stars,
-              };
-              result.collections.push(eachCollection);
-            }
-            console.log("get user result: ", result);
-            res.end(JSON.stringify(result));
-          });
-      } else {
-        res.status(404).send(404, "User doesn't exist");
-      }
-    });
+// retrieve a collection by url
+app.get('/api/collection/:url', function(req, res) {
+  mongo.findByUrl(req.params.url).then(function(collection) {
+    res.end(JSON.stringify(collection));
+  });
 });
 
-// route to get all collection from database
-app.get('/all', function(req, res) {
-  db.knex('collections')
-    .join('users', 'collections.u_id', '=', 'users.id')
-    .select('collections.id', 'collections.title', 'collections.collection_url', 'collections.stars', 'collections.description', 'users.username')
-    .then(function(joinTable) {
-      console.log("This is the join table: ", joinTable);
-      var data = {
-        collections: joinTable
-      };
-      res.end(JSON.stringify(data));
-    })
-    .catch(function(err) {
-      res.status(404).end(JSON.stringify(err));
-    });
-});
-//catchall route, serve index.html, leave further routing to angular
-app.get('/*', function(req, res) {
-  res.sendFile(__dirname + '/client/index.html')
+// retrieve the meta data for all of a users collections
+app.get('/api/user/:userProvider/:userId', function(req, res) {
+  var user = {
+    provider: req.params.userProvider,
+    id: req.params.userId
+  };
+  mongo.getUserCollections(user).then(function(collections) {
+    res.end(JSON.stringify(collections));
+  });
 });
 
-console.log('Curates is listening on ' + port);
-app.listen(port);
+// retrieve the meta data for all collections
+app.get('/api/all', function(req, res) {
+  mongo.getAllCollections().then(function(collections) {
+    res.end(JSON.stringify(collections));
+  });
+});
+
+// route all other requests to the main page
+app.use(function(req, res) {
+  res.sendFile(__dirname + '/client/index.html');
+});
+
+// start the server
+app.listen(port, function() {
+  console.log('listening on', port);
+});
