@@ -405,7 +405,7 @@ body {
   clear: both;
   z-index: 12;
   width: 100.1341081805%;
-  margin: -0.5rem 0 0 -0.15646%;
+  margin: -0.937rem 0 0 -0.15646%;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.38;
@@ -452,7 +452,6 @@ body {
   float: left;
   width: 100.1341081805%;
   min-height: 2.313rem;
-  margin-top: -0.125rem;
   text-align: center;
   color: rgb(0, 0, 0);
 }
@@ -623,13 +622,13 @@ body {
 
 .votes-text-1 {
   z-index: 8;
-  margin-left: -0.12121%;
+  margin: -0.125rem 0 0 -0.12121%;
   font-weight: 700;
 }
 
 .votes-text-2 {
   z-index: 10;
-  margin-left: -0.15646%;
+  margin: 0.313rem 0 0 -0.15646%;
   font-weight: 400;
 }
 
