@@ -1,7 +1,7 @@
 ## Curates.io ##
 
 [![Stories in Ready](https://badge.waffle.io/Next-Mars/curates.png?label=ready&title=Waffle.io Task Board)](https://waffle.io/Next-Mars/curates) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-[![wercker status](https://app.wercker.com/status/8fd74b7d569d11a7f74f664710b13d12/s "wercker status")](https://app.wercker.com/project/bykey/8fd74b7d569d11a7f74f664710b13d12)
+[![wercker status](https://app.wercker.com/status/d2f59a61e7aadf3e207733c9f7b0dc9a/s "wercker status")](https://app.wercker.com/project/bykey/d2f59a61e7aadf3e207733c9f7b0dc9a)
 
 Revolutionary way to share collections of web content.
 
