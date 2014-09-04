@@ -1,13 +1,22 @@
 <div ng-controller="singleCollectionController">
-  <h2>{{ collection.title }}<small> by {{ collection.user.givenName }}</h2>
-  <p>{{ collection.description }}</p>
-  <a ng-href="#/{{ collection.url }}/edit" ng-if="isUser">Edit</a>
-  <!-- Edit should be a button -->
-  <button ng-if="!isUser" ng-click="clone()">Clone</button>
-  <p>{{ collection.stars }}</p>
-  <button ng-click="upVote()">Upvote</button>
-  <div class="collectionLinks" ng-repeat="link in collection.links">
-    <h3><a ng-href="{{ link.url }}">{{ link.title }}</a></h3>
-    {{ link.description }}
+  <div class="select-collection select-collection-2 clearfix">
+    <p class="select-text select-text-2"><strong><span>{{ collection.title }}</span></strong><small> by {{ collection.user.givenName }}</p>
+  </div>
+  <div class="single-link" ng-repeat="link in collection.links">
+    <div class="link clearfix">
+      <div class="scnshot-container clearfix">
+        <div class="box"></div>
+        <img class="screenshot" src="http://api.page2images.com/directlink?p2i_url={{ link.url }}&p2i_device=6&p2i_screen=1024x768&p2i_size=92x92&p2i_key=d38c9500ca1d4a51">
+      </div>
+      <div class="link-text clearfix">
+        <p class="link-title-text"><a ng-href="{{ link.url }}"><span>{{ link.title }}</span></a></p>
+        <p class="link-description-text">{{ link.description }}</p>
+        <a ng-href="#/{{ collection.url }}/edit" ng-if="isUser">Edit</a>
+        <!-- Edit should be a button -->
+        <button ng-if="!isUser" ng-click="clone()">Clone</button>
+        <p>{{ collection.stars }}</p>
+        <button ng-click="upVote()">Upvote</button>
+      </div>
+    </div>
   </div>
 </div>

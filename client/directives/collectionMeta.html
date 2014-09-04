@@ -1,7 +1,23 @@
 <div class="collectionMeta">
-  <p><a ng-href="#/{{ collection.url }}">{{ collection.title }}</a>   +{{collection.stars}} </p>
-  by: {{ collection.user.givenName }} <br />
-  <p>{{ collection.description }}</p>
-
-
+  <div class="collection-box collection-box-1"></div>
+  <div class="votes-user votes-user-2 clearfix">
+    <div class="votes-box votes-box-2 clearfix">
+      <p class="votes-text votes-text-2">
+        <span>12</span>
+      </p>
+      <p class="vote-num">
+        <span>votes</span>
+      </p>
+      <p class="vote-label"></p>
+    </div>
+    <p class="username username-3">
+      <span>{{ collection.user.givenName }}</span>
+    </p>
+  </div>
+  <div class="collection-text collection-text-2 clearfix">
+    <p class="collection-title">
+      <a ng-href="#/{{ collection.url }}">{{ collection.title }}</a>   +{{collection.stars}}
+    </p>
+    <p class="collection-description">{{ collection.description }}</p>
+  </div>
 </div>
