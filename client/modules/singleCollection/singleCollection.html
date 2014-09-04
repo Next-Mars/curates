@@ -5,7 +5,8 @@
   <!-- Edit should be a button -->
   <button ng-if="!isUser" ng-click="clone()">Clone</button>
   <p>{{ collection.stars }}</p>
-  <button ng-click="upVote()">Upvote</button>
+  <button ng-click="upVote()" ng-if="notYetUpvoted">Upvote</button>
+  <p ng-if="!notYetUpvoted"><b>You have liked this collection!<b/></p>
   <div class="collectionLinks" ng-repeat="link in collection.links">
     <h3><a ng-href="{{ link.url }}">{{ link.title }}</a></h3>
     {{ link.description }}

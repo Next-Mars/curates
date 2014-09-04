@@ -18,9 +18,11 @@ angular.module('curates.singleCollection', [])
       $scope.collection = collection;
     }
   });
+  $scope.notYetUpvoted = true;
   $scope.upVote = function() {
     $scope.collection.stars++;
     collectionFactory.updateCollection($scope.collection);
+    $scope.notYetUpvoted = false;
   };
   $scope.clone = function() {
     $state.go('createCollection', {
