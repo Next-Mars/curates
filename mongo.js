@@ -1,6 +1,8 @@
 // Establish connection with the server
+var connectionString = process.env.CURATES_DB_URI || process.env.WERCKER_MONGODB_URL;
+
 var mongoose = require('mongoose');
-mongoose.connect(process.env.CURATES_DB_URI);
+mongoose.connect(connectionString);
 var db = mongoose.connection;
 
 // Attach useful listeners to the database
