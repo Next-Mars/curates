@@ -27,6 +27,7 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-mocha-test": "^0.11.0",
     "grunt-nodemon": "^0.3.0",
-    "mongoose": "^3.8.15"
+    "mongoose": "^3.8.15",
+    "supertest": "^0.13.0"
   }
 }
