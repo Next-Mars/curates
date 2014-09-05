@@ -17,6 +17,7 @@
   ],
   "dependencies": {
     "angular": "~1.2.23",
+    "angular-mocks": "~1.2.18",
     "angular-ui-router": "~0.2.11",
     "underscore": "~1.7.0"
   }
