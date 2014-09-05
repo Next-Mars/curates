@@ -1,7 +1,3 @@
-// If developing on local box, uncomment lines below and add secret db connection string
-//var process = { env: { CURATES_DB_URI: 'SECRECT' }};
-// ** DO NOT COMMIT CONNECTION STRING TO PUBLIC REPO **
-
 // Establish connection with the server
 var mongoose = require('mongoose');
 mongoose.connect(process.env.CURATES_DB_URI);
