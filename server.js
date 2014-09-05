@@ -26,6 +26,7 @@ app.use(express.static(__dirname + '/client'));
 // responds with null if collection can't be added
 app.post('/api/collection/create', function(req, res) {
   mongo.create(req.body).then(function(collection) {
+    res.statusCode = 201;
     res.end(JSON.stringify(collection));
   });
 });
