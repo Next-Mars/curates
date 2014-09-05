@@ -10,6 +10,8 @@ angular.module('curates.singleCollection', [])
 
 .controller('singleCollectionController', function($scope, $state, $stateParams, collectionFactory, userManagement) {
   var url = $stateParams.url;
+  $scope.notYetUpvoted = true;
+
   collectionFactory.getCollection(url).then(function(collection) {
     if (collection != null) {
       $scope.isUser =
@@ -18,10 +20,13 @@ angular.module('curates.singleCollection', [])
       $scope.collection = collection;
     }
   });
+
   $scope.upVote = function() {
     $scope.collection.stars++;
     collectionFactory.updateCollection($scope.collection);
+    $scope.notYetUpvoted = false;
   };
+  
   $scope.clone = function() {
     $state.go('createCollection', {
       url: $scope.collection.url

@@ -1,21 +1,25 @@
 <div ng-controller="singleCollectionController">
-  <div class="select-collection select-collection-2 clearfix">
-    <p class="select-text select-text-2"><strong><span>{{ collection.title }}</span></strong><small> by {{ collection.user.givenName }}</p>
+  <div class="select-collection select-collection-1 clearfix">
+    <a ng-href="#/{{ collection.url }}/edit" ng-if="isUser"><button class="edit-btn" ng-if="isUser">Edit</button></a>
+    <p class="select-text select-text-1"><strong><span>{{ collection.title }}</span></strong><small> by {{ collection.user.givenName }}
+    </p>
+    <div class="btn-container clearfix">
+      <button class="clone-btn" ng-if="!isUser" ng-click="clone()">Clone</button>
+      <button class="upvote-btn" ng-click="upVote()" ng-if="notYetUpvoted">Upvote</button>
+    </div>
+    <span class="link-description-text" ng-if="!notYetUpvoted">You have liked this collection!</span>
   </div>
   <div class="single-link" ng-repeat="link in collection.links">
     <div class="link clearfix">
       <div class="scnshot-container clearfix">
-        <div class="box"></div>
-        <img class="screenshot" src="http://api.page2images.com/directlink?p2i_url={{ link.url }}&p2i_device=6&p2i_screen=1024x768&p2i_size=92x92&p2i_key=d38c9500ca1d4a51">
+        <div class="box"></div> 
+        <img class="screenshot" src="http://api.webthumbnail.org?width=92&height=92&screen=1280&format=png&url={{ link.url }}">
+        <!--Another possiblity: src="http://api.webthumbnail.org?width=400&height=300&screen=1280&format=png&url=http://mozilla.com" 
+        http://api.page2images.com/directlink?p2i_url={{ link.url }}&p2i_device=6&p2i_screen=1024x768&p2i_size=92x92&p2i_key=d38c9500ca1d4a51-->
       </div>
       <div class="link-text clearfix">
         <p class="link-title-text"><a ng-href="{{ link.url }}"><span>{{ link.title }}</span></a></p>
         <p class="link-description-text">{{ link.description }}</p>
-        <a ng-href="#/{{ collection.url }}/edit" ng-if="isUser">Edit</a>
-        <!-- Edit should be a button -->
-        <button ng-if="!isUser" ng-click="clone()">Clone</button>
-        <p>{{ collection.stars }}</p>
-        <button ng-click="upVote()">Upvote</button>
       </div>
     </div>
   </div>
