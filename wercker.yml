@@ -1,4 +1,4 @@
-box: wercker/nodejs
+box: danno040/PhantomJS@0.0.2
 services:
   - wercker/mongodb@1.0.1
 # Build definition
@@ -7,6 +7,8 @@ build:
   steps:
     # A step that executes `npm install` command
     - npm-install
+    # A step that executes `bower install` command
+    - plasticine/bower-install@0.0.4
     # A step that executes `grunt test` command
     - grunt:
         tasks: test
