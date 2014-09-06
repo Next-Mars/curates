@@ -11,12 +11,14 @@ angular.module('curates.singleCollection', [])
 .controller('singleCollectionController', function($scope, $state, $stateParams, collectionFactory, userManagement) {
   var url = $stateParams.url;
   $scope.notYetUpvoted = true;
+  $scope.collection = {};
+  $scope.isUser = false;
 
   collectionFactory.getCollection(url).then(function(collection) {
     if (collection != null) {
       $scope.isUser =
         (userManagement.user.id === collection.user.id &&
-        userManagement.user.provider === collection.user.provider);
+         userManagement.user.provider === collection.user.provider);
       $scope.collection = collection;
     }
   });
