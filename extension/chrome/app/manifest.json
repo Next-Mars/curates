@@ -33,7 +33,7 @@
         "https://*/*"
       ],
       "css": [
-        "assets/styles/styles.css"
+        // "assets/styles/styles.css"
       ],
       "js": [
         "scripts/contentscript.js"
