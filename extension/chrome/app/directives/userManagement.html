@@ -1,0 +1,16 @@
+<div class="userManagement">
+  <div class="notLoggedIn" ng-if="!loggedIn">
+    <form id="signin" ng-submit="login(name)">
+      <input class="_input" placeholder="Username" type="text" ng-model="name" name="username">
+      <button class="_button" type="submit" name="submit">Sign In</button>
+    </form>
+  </div>
+  <div class="loggedIn" ng-if="loggedIn">
+    <form id="logout" ng-submit="logout()">
+      Welcome {{ user.givenName }}!!
+      <button type="submit" name="submit">Log Out</button>
+    </form>
+    <a ng-href="#/create">Create New</a> &nbsp;&nbsp;&nbsp;
+    <a ui-sref="myCollections">Your Collections</a><br />
+  </div>
+</div>
