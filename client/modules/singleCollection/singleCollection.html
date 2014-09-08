@@ -5,13 +5,17 @@
     <button class="btn btn-success" ng-click="upVote()" ng-if="notYetUpvoted"><b>Upvote</b></button>
   <p ng-if="!notYetUpvoted">You have liked this collection!</p>
   <br>
-  <h4><b>Collection Description: </b></h4>
+  <h3><b>Collection Description: </b></h3>
   <p>{{ collection.description }}</p>
 
   <p><a ng-href="#/{{ collection.url }}/edit" ng-if="isUser">Edit</a></p>
-  <h4><b>Links: </b></h4>
-  <div class="collectionLinks" ng-repeat="link in collection.links">
-    <p><a ng-href="{{ link.url }}">{{ link.title }}</a></p>
-    {{ link.description }}
-  </div>
+  <h3><b>Links: </b></h3>
+  <ol>
+    <div class="collectionLinks" ng-repeat="link in collection.links">
+        <li><h4><a ng-href="{{ link.url }}">{{ link.title }}</a>
+        </h4>
+          <p>{{ link.description }}</p>
+        </li>
+    </div>
+  </ol>
 </div>
