@@ -40,6 +40,10 @@ var collectionSchema = new mongoose.Schema({
     title: String,
     description: String
   }],
+  userStars: {
+    type: [],
+    default: []
+  },
   createdAt: {
     type: Date,
     default: Date.now
