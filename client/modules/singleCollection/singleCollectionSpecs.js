@@ -3,16 +3,6 @@ describe('singleCollectionController', function() {
 
   beforeEach(module('curates'));
 
-  // TODO: Unsure how to use Jasmine spies in Angular unit tests:
-  // More info: http://stackoverflow.com/questions/19282006/tetsing-angularjs-ui-router-go-method
-  // 
-  // beforeEach(inject(function($state) {
-  //   spyOn($state, 'go');
-  //   .andCallFake(function(state, params) {
-  //     return [state, params];
-  //   });
-  // }));
-
   beforeEach(inject(function($injector) {
     
     $rootScope = $injector.get('$rootScope');
@@ -106,21 +96,5 @@ describe('singleCollectionController', function() {
     expect($scope.notYetUpvoted).to.eql(false);
     expect($scope.collection.stars).to.eql(1);
   });
-
-  // TODO: Unsure how to use Jasmine spies in Angular unit tests:
-  // More info: http://stackoverflow.com/questions/19282006/tetsing-angularjs-ui-router-go-method
-  // 
-  // it('should call collectionFactory.getCollection(), then clone by redirecting to createCollection state', function() {
-  //   var mockCollection = { user: {id: 1234, provider: 'github'}, stars: 0, url: 'anothernewcollection' };
-  //   $httpBackend.expectGET("/api/collection/anewcollection").respond(mockCollection);
-  //   $httpBackend.expectGET("modules/collectionsList/collectionsList.html").respond(200, '');
-  //   createController();
-  //   $httpBackend.flush();
-  //   $scope.clone();
-  //   //expect($state.go).toHaveBeenCalled();
-  //   // With('createCollection', {
-  //   //   url: mockCollection.url
-  //   // })
-  // });
 
 });
