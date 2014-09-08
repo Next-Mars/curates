@@ -1,6 +1,9 @@
 <div ng-controller="collectionsListController">
-
-  Search Collection:<input ng-model="query">
+  <!-- Search:<input > -->
+  <div class="input-group">
+    <span class="input-group-addon">Search</span>
+    <input ng-model="query" type="text" class="form-control" placeholder="Type your keyword here...">
+  </div>
   <br>
   <br>
   <collection-meta ng-repeat="collection in listData | filter:query | orderBy:predicate" collection="collection" />

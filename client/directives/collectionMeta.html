@@ -1,7 +1,5 @@
 <div class="collectionMeta">
-  <p><a ng-href="#/{{ collection.url }}">{{ collection.title }}</a>   +{{collection.stars}} </p>
-  by: {{ collection.user.givenName }} <br />
+  <h4><b><a ng-href="#/{{ collection.url }}">{{ collection.title }}</b></a>        <span class="label label-info"><b>+{{collection.stars}}</b></span></h4>
+  <p><i>Creator: {{ collection.user.givenName }}</i></p>
   <p>{{ collection.description }}</p>
-
-
 </div>

@@ -1,18 +1,24 @@
-<div class="userManagement col-md-4">
-  <div class="loggedIn" ng-if="loggedIn">
-    <form class="form-inline" role="form" id="logout" ng-submit="logout()">
-      <button class="btn btn-info logOutBtn" type="submit" name="submit">Log Out</button>
-    </form>
-    <p><b>Welcome {{ user.givenName }}!</b></p>
-    <a ng-href="#/create">Create a new Collection</a><br />
-    <a ui-sref="myCollections">Your Collections</a><br />
+<div class="userManagement">
+  <div class="loggedIn row" ng-if="loggedIn">
+    <div class="col-md-9">
+      <a ng-href="#/create">Create a new Collection</a><br />
+      <a ui-sref="myCollections">Your Collections</a><br />
+    </div>
+    <div class="col-md-3">
+      <form class="form-inline" role="form" id="logout" ng-submit="logout()">
+        <p><b>Welcome {{ user.givenName }}!</b><button class="btn btn-info logOutBtn" type="submit" name="submit"><b>Log Out</b></button></p>
+      </form>
+    </div>
   </div>
-  <div class="notLoggedIn" ng-if="!loggedIn">
-    <form class="form-inline" role="form" id="signin" ng-submit="login(name)" >
-      <div class="form-group">
-        <button class="btn btn-success" type="submit" name="submit"><b>Log in</b></button>
-        <input class="form-control" type="text" placeholder="Username" name="username" ng-model="name"></input>
-      </div>
-    </form>
+  <div class="notLoggedIn row" ng-if="!loggedIn">
+    <div class="col-md-9"></div>
+    <div class="col-md-3">
+      <form class="form-inline" role="form" id="signin" ng-submit="login(name)" >
+        <div class="form-group">
+          <button class="btn btn-success" type="submit" name="submit"><b>Log in</b></button>
+          <input class="form-control" type="text" placeholder="Username" name="username" ng-model="name"></input>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

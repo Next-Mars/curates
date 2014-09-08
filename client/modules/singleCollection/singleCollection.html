@@ -1,5 +1,8 @@
 <div ng-controller="singleCollectionController">
-  <h2>{{ collection.title }}<small> by {{ collection.user.givenName }}</h2>
+  <h2 class="text-primary">{{ collection.title }}</h2>
+  <p><i>Creator: {{ collection.user.givenName }}</i></p>
+  <br>
+  <h4>Collection Description: </h4>
   <p>{{ collection.description }}</p>
   <a ng-href="#/{{ collection.url }}/edit" ng-if="isUser">Edit</a>
   <!-- Edit should be a button -->
