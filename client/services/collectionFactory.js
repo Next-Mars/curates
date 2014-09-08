@@ -49,7 +49,17 @@ angular.module('curates.collectionFactory', [])
     }).then(function(response) {
       return response.data;
     });
-  }
+  };
+
+  var addStar = function(data) {
+    return $http({
+      method: 'POST',
+      url: '/api/collection/addStar',
+      data: data
+    }).then(function(response) {
+      return response.data;
+    });
+  };
 
   return {
     getCollection: getCollection,
