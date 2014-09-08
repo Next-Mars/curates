@@ -42,6 +42,10 @@ var collectionSchema = new mongoose.Schema({
     title: String,
     description: String
   }],
+  userStars: {
+    type: [],
+    default: []
+  },
   createdAt: {
     type: Date,
     default: Date.now
@@ -148,6 +152,37 @@ mongo.addLink = function(data) {
       }
     }
   }).exec();
+};
+
+// If the provided user has not already starred this
+// collection, adds a star to the collection
+//
+// Expects data to have _id and user properties:
+//  {
+//    _id: the collection to add to
+//    user: [
+//      {
+//        provider: String,
+//        id: String,
+//        fullName: String,
+//        givenName: String
+//      }
+//    ]
+//  }
+// Returns a promise that resolves to the updated collections
+mongo.addStar = function(data) {
+  // Stringify the user
+  // This should be unique to every user
+  var userString = data.user.provider + data.user.id;
+  return Collection.findByIdAndUpdate(data._id, {
+    $addToSet: { userStars: userString }
+  }).exec()
+  .then(function(collection) {
+    var update = {};
+    update._id = collection._id;
+    update.stars = collection.userStars.length;
+    return mongo.update(update);
+  });
 };
 
 // Returns a promise that resolves to an array of objects, each

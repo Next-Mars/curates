@@ -46,6 +46,16 @@ app.post('/api/collection/addlink', function(req, res) {
   });
 });
 
+// add a star to a collection
+// this will check if the given user has already stared the collection
+// and if not, add the user to userStars and increment stars.
+// responds with the collection, updated or not
+app.post('/api/collection/addStar', function(req, res) {
+  mongo.addStar(req.body).then(function(collection) {
+    res.end(JSON.stringify(collection));
+  });
+});
+
 // retrieve a collection by url
 app.get('/api/collection/:url', function(req, res) {
   mongo.findByUrl(req.params.url).then(function(collection) {
