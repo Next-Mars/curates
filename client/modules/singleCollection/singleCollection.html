@@ -1,13 +1,13 @@
 <div ng-controller="singleCollectionController">
   <div class="select-collection select-collection-1 clearfix">
     <a ng-href="#/{{ collection.url }}/edit" ng-if="isUser"><button class="edit-btn" ng-if="isUser">Edit</button></a>
-    <p class="select-text select-text-1"><strong><span>{{ collection.title }}</span></strong><small> by {{ collection.user.givenName }}
-    </p>
+    <p class="collection-title-text"><span>{{ collection.title }}</span></p>
+    <p class="collection-description-text">{{ collection.description }}</p>
     <div class="btn-container clearfix">
       <button class="clone-btn" ng-if="!isUser" ng-click="clone()">Clone</button>
       <button class="upvote-btn" ng-click="upVote()" ng-if="notYetUpvoted">Upvote</button>
+      <span class="link-description-text" style="margin-top: .5rem;" ng-if="!notYetUpvoted">Liked!</span>
     </div>
-    <span class="link-description-text" ng-if="!notYetUpvoted">You have liked this collection!</span>
   </div>
   <div class="single-link" ng-repeat="link in collection.links">
     <div class="link clearfix">

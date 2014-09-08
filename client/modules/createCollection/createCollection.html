@@ -1,6 +1,6 @@
 <div ng-controller="createCollectionController">
   <div class="notLoggedIn" ng-if="!loggedIn">
-    <h2>Log in to create a collection.</h2>
+    <h2 class="login-to-use">Log in to create a collection.</h2>
   </div>
   <div class="createCollection" ng-if="loggedIn">
     <form name="create" class="createCollectionForm" ng-submit="submitCreate()">
@@ -24,7 +24,7 @@
           </div>
         </div>
       </div>
-      <button class="create-another-link-btn" ng-click="addLink()">Add Another Link</button>
+      <button class="create-another-link-btn" type="button" ng-click="addLink()">Add Another Link</button>
       <button class="create-collection-btn" name="submit" type="submit">Create Collection</button>
 
     </form>

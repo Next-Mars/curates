@@ -18,10 +18,25 @@ body {
   font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+.collection-username {
+  font-size: 1rem;
+  color: white;
+}
+
 .chromeaddurl,
-.collectioncreate {
+.linkview {
   background-color: rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
+}
+
+.collectioncreate {
+  background-color: rgb(43, 62, 80);
   color: rgb(0, 0, 0);
+}
+
+.collectioncreate-copy {
+  background-color: rgb(43, 62, 80);
+  color: rgb(255, 255, 255);
 }
 
 .index {
@@ -29,8 +44,21 @@ body {
   color: rgb(255, 255, 255);
 }
 
-.linkview {
-  background-color: rgb(255, 255, 255);
+.add-link {
+  display: block;
+  position: relative;
+  float: right;
+  z-index: 13;
+  width: 15.0070126227%;
+  height: 2.25rem;
+  margin: -4.625rem 1.84958% 0 0;
+  border: 0.063rem solid rgb(254, 254, 254);
+  border-radius: 0.625rem;
+  background-color: rgb(92, 184, 92);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.38;
+  text-align: center;
   color: rgb(255, 255, 255);
 }
 
@@ -38,7 +66,6 @@ body {
   position: relative;
   float: left;
   width: 587.2088534294%;
-  height: 7.188rem;
   margin-top: 0.063rem;
   border-radius: 0.625rem;
   background-color: rgb(78, 93, 108);
@@ -46,11 +73,28 @@ body {
 
 .btn-container {
   position: absolute;
-  top: 0.375rem;
-  right: 2.7147108843%;
-  z-index: 8;
+  top: 1.375rem;
+  right: 2.4362244897%;
+  z-index: 7;
   width: 9.5238095238%;
-  height: 3.438rem;
+  height: 3.5rem;
+}
+
+.checkbox {
+  display: block;
+  float: left;
+  margin-top: 0.188rem;
+}
+
+.checkbox-label {
+  display: block;
+  position: relative;
+  float: left;
+  clear: both;
+  z-index: 16;
+  width: 11.5007012622%;
+  height: 1.375rem;
+  margin-top: -0.937rem;
 }
 
 .clone-btn {
@@ -85,11 +129,56 @@ body {
   background-color: rgb(78, 93, 108);
 }
 
+.collection-box-select {
+  position: relative;
+  float: left;
+  clear: both;
+  z-index: 4;
+  width: 100%;
+  height: 7.188rem;
+  margin-top: -7.187rem;
+  border-radius: 0.625rem;
+  background-color: rgb(78, 93, 108);
+}
+
+.collection-desc-select {
+  float: left;
+  clear: both;
+  width: 99.9936202111%;
+  min-height: 2.125rem;
+  border-radius: 0.625rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.38;
+  color: rgb(255, 255, 255);
+}
+
 .collection-description {
   float: left;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.38;
+}
+
+.collection-description-text {
+  position: absolute;
+  top: 3.063rem;
+  left: 16.9982993197%;
+  z-index: 8;
+  width: 67.8911564625%;
+  min-height: 2.125rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.38;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  overflow: hidden;
+}
+
+.collection-select {
+  float: left;
+  width: 100%;
+  height: 7.188rem;
 }
 
 .collection-text {
@@ -106,6 +195,16 @@ body {
   width: 99.9936202111%;
   min-height: 2.125rem;
   color: rgb(255, 255, 255);
+  overflow: hidden;
+}
+
+.collection-text-select {
+  position: relative;
+  float: left;
+  z-index: 7;
+  width: 61.8513323983%;
+  height: 5.5rem;
+  margin: -6.312rem 0 0 17.1962699999%;
 }
 
 .collection-title {
@@ -116,6 +215,20 @@ body {
   font-weight: 400;
   line-height: 1.38;
   color: rgb(254, 254, 254);
+}
+
+.collection-title-text {
+  position: absolute;
+  top: 0.438rem;
+  left: 17.006802721%;
+  z-index: 9;
+  width: 66.6666666666%;
+  min-height: 2.438rem;
+  font-size: 1.875rem;
+  font-weight: 400;
+  line-height: 1.38;
+  text-align: center;
+  color: rgb(255, 255, 255);
 }
 
 .collections-search {
@@ -131,7 +244,7 @@ body {
   position: relative;
   float: left;
   clear: both;
-  z-index: 18;
+  z-index: 21;
   width: 12.7994791666%;
   height: 2.688rem;
   margin: 2.125rem 0 0 20.19401%;
@@ -171,7 +284,7 @@ body {
   display: block;
   position: relative;
   float: right;
-  z-index: 17;
+  z-index: 20;
   width: 12.7994791666%;
   height: 2.688rem;
   margin: 2.125rem 20.45573% 0 0;
@@ -209,20 +322,32 @@ body {
   color: rgb(0, 0, 0);
 }
 
+.create-link {
+  position: relative;
+  float: left;
+  z-index: 13;
+  width: 100%;
+  height: 7.188rem;
+  margin-top: 0.938rem;
+}
+
 .create-link .box {
   z-index: 6;
+  height: 7.688rem;
+  margin-left: -0.27024%;
 }
 
 .create-link .screenshot {
   z-index: 7;
+  margin-top: -6.812rem;
 }
 
 .edit-btn {
   display: block;
   float: left;
-  width: 5.9375%;
-  height: 2.313rem;
-  margin: 1.063rem 0 0 0.80145%;
+  width: 5.9863945578%;
+  height: 1.938rem;
+  margin: 2.188rem 0 0 2.58291%;
   border-radius: 0.188rem;
   background-color: rgb(222, 222, 222);
   font-size: 1rem;
@@ -243,10 +368,8 @@ body {
   font-weight: 400;
   line-height: 1.38;
   text-align: right;
-  color: rgb(0, 0, 0);
 }
 
-.create-link,
 .link {
   position: relative;
   float: left;
@@ -256,11 +379,13 @@ body {
 }
 
 .link .box {
-  z-index: 10;
+  z-index: 11;
+  height: 7.188rem;
 }
 
 .link .screenshot {
-  z-index: 11;
+  z-index: 12;
+  margin-top: -6.312rem;
 }
 
 .link-description {
@@ -293,8 +418,8 @@ body {
 
 .link-inputs {
   position: absolute;
-  top: 1.063rem;
-  left: 25.7819074333%;
+  top: 0.75rem;
+  left: 23.0956346423%;
   z-index: 12;
   width: 74.193548387%;
   height: 5.5rem;
@@ -304,7 +429,7 @@ body {
   position: absolute;
   top: 1.063rem;
   left: 25.7819074333%;
-  z-index: 15;
+  z-index: 16;
   width: 74.193548387%;
   height: 5.5rem;
 }
@@ -325,6 +450,7 @@ body {
   color: rgb(0, 0, 0);
 }
 
+.collection-title-select,
 .link-title-text {
   float: left;
   width: 99.830935596%;
@@ -351,6 +477,20 @@ body {
   color: rgb(0, 0, 0);
 }
 
+.login-to-use {
+  position: absolute;
+  top: 9.375rem;
+  left: 35.5989583333%;
+  z-index: 22;
+  width: 28.7994791666%;
+  min-height: 1.625rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.38;
+  text-align: center;
+  color: rgb(255, 255, 255);
+}
+
 .logotext {
   position: absolute;
   left: 10%;
@@ -374,7 +514,6 @@ body {
   font-weight: 400;
   line-height: 1.38;
   text-align: right;
-  color: rgb(0, 0, 0);
 }
 
 .navbar {
@@ -383,6 +522,15 @@ body {
   width: 80%;
   height: 4.375rem;
   margin-left: 10%;
+}
+
+.point-text {
+  display: block;
+  float: left;
+  margin-left: 6px;
+  font-weight: 400;
+  line-height: 1.38;
+  color: rgb(255, 255, 255);
 }
 
 .scnshot-container {
@@ -398,7 +546,7 @@ body {
   clear: both;
   width: 92px;
   height: auto;
-  margin: -6.312rem 0 0 8.72475%;
+  margin-left: 8.72475%;
   overflow: hidden;
 }
 
@@ -406,14 +554,15 @@ body {
   float: left;
   clear: both;
   width: 61.25%;
-  height: 4.188rem;
   border-radius: 0.625rem;
   background-color: rgb(78, 93, 108);
 }
 
 .select-text {
   float: left;
+  width: 100%;
   min-height: 2.625rem;
+  margin-top: 1rem;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.38;
@@ -438,7 +587,8 @@ body {
   margin: 0.938rem 0 0 20.19401%;
 }
 
-.single-collection {
+.single-collection,
+.single-collection-select {
   float: left;
   clear: both;
   width: 59.4166666666%;
@@ -451,7 +601,7 @@ body {
   clear: both;
   width: 59.4166666666%;
   height: 7.188rem;
-  margin: 1.438rem 0 0 20.28125%;
+  margin: 1.375rem 0 0 20.36198%;
 }
 
 .upvote-btn {
@@ -471,6 +621,17 @@ body {
 }
 
 .username {
+  display: block;
+  position: relative;
+  float: left;
+  clear: both;
+  z-index: 2;
+  width: 17.1328125%;
+  height: 2.563rem;
+  margin: -3.375rem 0 0 61%;
+  padding: 0 0.625rem;
+  background-color: rgb(242, 242, 242);
+  font-size: 0.813rem;
   font-weight: 400;
   line-height: 1.38;
   color: rgb(0, 0, 0);
@@ -505,9 +666,43 @@ body {
 .votes-box {
   width: 61.9753428452%;
   height: 3.313rem;
-  margin: 0.375rem auto 0;
+  margin: 1.563rem auto 0;
   border-radius: 0.625rem;
   background-color: rgb(43, 62, 80);
+}
+
+.votes-box-select {
+  width: 61.9753428452%;
+  height: 3.313rem;
+  margin: 2rem auto 0;
+  border-radius: 0.625rem;
+  background-color: rgb(43, 62, 80);
+}
+
+.votes-label-select {
+  position: relative;
+  float: left;
+  clear: both;
+  z-index: 10;
+  width: 100.1341081805%;
+  margin: -0.75rem 0 0 -0.12121%;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.38;
+  text-align: center;
+  color: rgb(255, 255, 255);
+}
+
+.votes-number-select {
+  position: relative;
+  float: left;
+  clear: both;
+  z-index: 9;
+  margin: -0.875rem 0 0 12.58182%;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.38;
+  color: rgb(0, 0, 0);
 }
 
 .votes-text {
@@ -522,22 +717,37 @@ body {
   color: rgb(0, 0, 0);
 }
 
+.votes-text-select {
+  position: relative;
+  float: left;
+  z-index: 8;
+  width: 100.1341081805%;
+  min-height: 2.313rem;
+  margin: 0.125rem 0 0 -0.12121%;
+  font-size: 1.875rem;
+  font-weight: 400;
+  line-height: 1.38;
+  text-align: center;
+  color: rgb(255, 255, 255);
+}
+
 .votes-user {
   position: relative;
   float: left;
   clear: both;
-  z-index: 15;
+  z-index: 14;
   width: 15.8200385694%;
   height: 5.563rem;
   margin-top: -6.75rem;
 }
 
-.votes-user .username {
-  width: 99.2935309599%;
-  min-height: 1.938rem;
-  margin: 0.5rem auto 0;
-  font-size: 1rem;
-  text-align: center;
+.votes-user-select {
+  position: relative;
+  float: left;
+  z-index: 12;
+  width: 14.5862552594%;
+  height: 7.188rem;
+  margin-left: -0.05479%;
 }
 
 ._button {
@@ -584,6 +794,7 @@ body {
   width: 31.1953352769%;
   height: 2.563rem;
   margin-left: 3.02934%;
+  border: 0.063rem solid rgb(254, 254, 254);
   background-color: rgb(92, 184, 92);
   font-size: 1rem;
 }
@@ -600,65 +811,90 @@ body {
   border-style: solid;
 }
 
-.logotext-1 {
+.checkbox-label-1 {
+  margin-left: 3.03734%;
+}
+
+.checkbox-label-2 {
+  margin-left: 3.03953%;
+}
+
+.create-collection-name-1 {
+  position: relative;
+  z-index: 5;
+}
+
+.hi-user-1,
+.hi-user-2,
+.hi-user-3 {
+  color: rgb(0, 0, 0);
+}
+
+.hi-user-4 {
+  color: rgb(255, 255, 255);
+}
+
+.logotext-3 {
   top: 1.313rem;
   z-index: 1;
   color: rgb(223, 105, 26);
 }
 
+.logotext-1,
 .logotext-2,
-.logotext-3,
 .logotext-4 {
   top: 0.375rem;
   z-index: 3;
   color: rgb(0, 0, 0);
 }
 
-.navbar-1 {
+.logotext-5 {
+  top: 0.375rem;
+  z-index: 3;
+  color: rgb(255, 255, 255);
+}
+
+.logout-1,
+.logout-2,
+.logout-3 {
+  color: rgb(0, 0, 0);
+}
+
+.logout-4 {
+  border-radius: 0.625rem;
+  background-color: rgb(78, 93, 108);
+  color: rgb(255, 255, 255);
+}
+
+.navbar-3 {
   z-index: 0;
   margin-top: 1.625rem;
   background-color: rgb(43, 62, 80);
 }
 
+.navbar-1,
 .navbar-2,
-.navbar-3,
 .navbar-4 {
   z-index: 2;
   margin-top: 0.688rem;
   background-color: rgb(222, 222, 222);
 }
 
+.navbar-5 {
+  z-index: 2;
+  margin-top: 0.688rem;
+  background-color: rgb(78, 93, 108);
+}
+
 .select-collection-1 {
   position: relative;
-  margin: 1.563rem 0 0 19.16276%;
+  height: 6.188rem;
+  margin: 1.563rem 0 0 19.16667%;
 }
 
 .select-collection-2 {
+  height: 4.188rem;
   margin: 1.625rem 0 0 19.33073%;
-}
-
-.select-text-1 {
-  width: 66.5306122448%;
-  margin: 0.75rem 0 0 10.41029%;
-}
-
-.select-text-2 {
-  width: 100%;
-  margin-top: 1rem;
-}
-
-.username-1 {
-  display: block;
-  position: relative;
-  float: left;
-  clear: both;
-  z-index: 2;
-  width: 17.1328125%;
-  height: 2.563rem;
-  margin: -3.375rem 0 0 61%;
-  padding: 0 0.625rem;
-  background-color: rgb(242, 242, 242);
-  font-size: 0.813rem;
 }
 
 .logotext span {
@@ -668,20 +904,12 @@ body {
   font-weight: 500;
 }
 
-.logotext-1 span {
+.logotext-3 span {
   background-color: transparent;
-}
-
-.select-text span {
-  font-size: 2.25rem;
 }
 
 .select-text strong {
   font-size: 1.75rem;
-}
-
-.username span {
-  color: rgb(254, 254, 254);
 }
 
 .votes-text span {
@@ -689,11 +917,19 @@ body {
   color: rgb(254, 254, 254);
 }
 
+.votes-text-select span {
+  font-size: 1.25rem;
+}
+
 @media(max-width: 600px) {
   .btn-container .clone-btn,
   .btn-container .upvote-btn {
     width: 134.2857142857%;
     margin-left: -21.38393%;
+  }
+
+  .checkbox-label .point-text {
+    clear: both;
   }
 
   .collection .collection-box {
@@ -714,22 +950,68 @@ body {
 
   .collection .votes-user {
     position: relative;
-    z-index: 15;
+    z-index: 14;
     width: 7.201867816%;
     margin-top: -6.312rem;
     margin-left: 0.02395%;
   }
 
+  .collection-select .add-link {
+    position: relative;
+    float: left;
+    z-index: 13;
+    width: 11.6219667943%;
+    height: 1.875rem;
+    margin-top: -6.812rem;
+    margin-right: 0;
+    margin-left: 32.92625%;
+  }
+
+  .collection-select .collection-box-select {
+    position: relative;
+    z-index: 4;
+    width: 45.5938697318%;
+    height: 7rem;
+  }
+
+  .collection-select .collection-text-select {
+    position: relative;
+    z-index: 7;
+    width: 37.6756066411%;
+    margin-top: -7.187rem;
+    margin-left: 7.91627%;
+  }
+
+  .collection-select .votes-user-select {
+    position: relative;
+    z-index: 12;
+    width: 7.201867816%;
+    margin-top: 1.625rem;
+    margin-left: 0.02395%;
+  }
+
+  .collection-text-select .collection-desc-select {
+    position: relative;
+    z-index: 6;
+    margin-top: -0.312rem;
+  }
+
+  .collection-text-select .collection-title-select {
+    position: relative;
+    z-index: 5;
+    margin-top: 0.313rem;
+  }
+
   .create-another-link-btn {
     position: relative;
-    z-index: 18;
-    margin-top: 9.188rem;
+    z-index: 21;
+    margin-top: -12.875rem;
     margin-left: 20.19271%;
   }
 
   .create-collection {
     position: relative;
-    z-index: 16;
+    z-index: 19;
     margin-top: 0.375rem;
     margin-left: 18.66146%;
   }
@@ -741,15 +1023,14 @@ body {
 
   .create-collection-btn {
     position: relative;
-    z-index: 17;
-    margin-top: 9.188rem;
+    z-index: 20;
+    margin-top: -12.875rem;
     margin-right: 20.59375%;
   }
 
   .create-collection-name {
     position: relative;
     z-index: 5;
-    margin-top: 2.25rem;
     margin-left: 18.66146%;
   }
 
@@ -759,24 +1040,31 @@ body {
 
   .create-link .box {
     z-index: 6;
+    margin-left: 0;
+  }
+
+  .create-link .link-inputs {
+    top: 1.063rem;
+    left: 30.7091514726%;
+    width: 64.2356241234%;
   }
 
   .create-link .screenshot {
     z-index: 7;
+    margin-top: -6.312rem;
   }
 
   .link .box {
-    z-index: 10;
+    z-index: 11;
   }
 
-  .create-link .link-inputs,
   .link .link-text {
     left: 30.7091514726%;
     width: 64.2356241234%;
   }
 
   .link .screenshot {
-    z-index: 11;
+    z-index: 12;
   }
 
   .link-inputs .link-description {
@@ -831,11 +1119,21 @@ body {
     margin-top: 2.188rem;
   }
 
+  .select-collection .btn-container {
+    top: 1.438rem;
+    right: 3.1207482993%;
+  }
+
   .select-collection .edit-btn {
-    position: relative;
-    z-index: 5;
     width: 7.8911564625%;
-    margin-left: 2.17262%;
+    margin-top: 2.313rem;
+    margin-left: 2.44473%;
+  }
+
+  .select-collection .select-text {
+    width: 81.3605442176%;
+    margin-top: 0.438rem;
+    margin-left: 8.16916%;
   }
 
   .signin {
@@ -845,22 +1143,39 @@ body {
 
   .single--new-link {
     position: relative;
-    z-index: 14;
+    z-index: 17;
     margin-top: -6.812rem;
     margin-left: 19.98698%;
   }
 
+  .single--new-link .checkbox-label {
+    position: relative;
+    z-index: 16;
+  }
+
   .single--new-link .create-link {
+    position: relative;
+    z-index: 13;
     margin-top: 7.438rem;
   }
 
   .single-collection {
     width: 130.5%;
     height: 7rem;
+    margin-top: 1.563rem;
+    margin-left: 20.19792%;
   }
 
-  .single-collection .collection {
+  .single-collection .collection,
+  .single-collection-select .collection-select {
     height: 7rem;
+  }
+
+  .single-collection-select {
+    width: 130.5%;
+    height: 7rem;
+    margin-top: 0;
+    margin-left: 19.15625%;
   }
 
   .single-link {
@@ -900,25 +1215,40 @@ body {
     margin-left: 0;
   }
 
-  .votes-user .username {
-    visibility: hidden;
+  .votes-box-select .votes-label-select {
     position: relative;
-    float: left;
-    clear: both;
-    z-index: 14;
-    margin-top: -3.75rem;
-    margin-right: 0;
-    margin-left: 0.27709%;
+    z-index: 10;
+    margin-top: -0.437rem;
+    margin-left: -0.18169%;
+    font-family: Arial;
+    font-style: normal;
+  }
+
+  .votes-box-select .votes-number-select {
+    position: relative;
+    z-index: 9;
+    margin-left: 12.5363399999%;
+  }
+
+  .votes-box-select .votes-text-select {
+    position: relative;
+    z-index: 8;
+    width: 100%;
+    margin-top: -0.187rem;
+    margin-left: 0;
   }
 
   .votes-user .votes-box {
-    position: relative;
     float: left;
-    z-index: 13;
     width: 76.2538099196%;
     margin-top: 0.5rem;
     margin-right: 0;
     margin-left: 13.023%;
+  }
+
+  .votes-user-select .votes-box-select {
+    width: 76.2538099196%;
+    margin-top: 1.688rem;
   }
 
   .collections-search ._button {
@@ -942,29 +1272,23 @@ body {
     width: 65.5795784883%;
   }
 
-  .navbar-1 {
+  .create-collection-name-1 {
+    margin-top: 3.375rem;
+  }
+
+  .create-collection-name-2 {
+    margin-top: 2.25rem;
+  }
+
+  .navbar-3 {
     z-index: 0;
   }
 
+  .navbar-1,
   .navbar-2,
-  .navbar-3,
-  .navbar-4 {
+  .navbar-4,
+  .navbar-5 {
     z-index: 2;
-  }
-
-  .select-collection .select-text-1 {
-    position: relative;
-    clear: both;
-    z-index: 4;
-    width: 80.8163265306%;
-    margin-top: -2.625rem;
-    margin-left: 8.0017%;
-  }
-
-  .select-collection .select-text-2 {
-    width: 81.3605442176%;
-    margin-top: 0.438rem;
-    margin-left: 8.16916%;
   }
 
   .select-collection-1 {
@@ -977,13 +1301,11 @@ body {
     margin-left: 18.66667%;
   }
 
-  .single-collection-1 {
-    margin-top: 1.563rem;
-    margin-left: 20.19792%;
+  .single--new-link .checkbox-label-1 {
+    margin-left: 3.03296%;
   }
 
-  .single-collection-2 {
-    margin-top: 0;
-    margin-left: 19.15625%;
+  .single--new-link .checkbox-label-2 {
+    margin-left: 3.03734%;
   }
 }
