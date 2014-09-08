@@ -26,10 +26,11 @@ Table of Contents
 
 ## Requirements
 
-- Mysql 2.4.3
+- Mongo 2.4.3
 - Angular 1.2.23
 - Express 4.8.6
 - Node 0.10.x
+- Mongoose ORM 3.8.15
 
 ## Development
 
@@ -52,15 +53,14 @@ npm install
 bower install
 ```
 
-####Steps to setup a local MySql database:
-1. Install MySQL; do not install with a password
-2. Go to MySQL commandline using - 'mysql -u root'
-3. From MySQL commandline create database called 'curates'
-4. Check connection details in server/dbconfig.js is correct for your particular environment.
-   ie. use environmental url, not localhost when deploying.
-4. Run 'node server/dbconfig.js';
-5. Now your db, table schema are set up!
-Refer to [wiki for more detailed information](https://github.com/Next-Mars/curates/wiki/Database-Schema-Summary-%28Work-In-Progress%29).
+To install dependancies for the chrome extension inside the extensions/chrome directory:
+
+```sh
+bower install
+```
+
+####Steps to setup a Mongo database:
+Refer to [wiki for more detailed information](https://github.com/Next-Mars/curates/wiki/How-to-Create-and-Setup-a-Mongo-Database).
 
 ### Roadmap
 
