@@ -1,32 +1,41 @@
 <div ng-controller="editCollectionController">
-  <h2>{{ collection.title }}<small> by {{ collection.user.givenName }}</h2>
-  <div class="wrongUser" ng-if="!editable">
-    <h2>You cannot edit this, its not your collection. Fork it instead</h2>
-  </div>
-  <div class="editCollection" ng-if="editable" ng-submit="submitCollectionEdit()">
-    <form name="edit" class="editCollectionForm">
-      <label>Description: 
-        <input name="description" type="text" ng-model="collection.description" />
-      </label>
+  <div class="createCollection" ng-if="!editable">
+    <div name="create" class="createCollectionForm">
 
-      Links:
-      <div class="editLink" ng-repeat="link in collection.links">
-        <label>Title:
-          <input type="text" ng-model="collection.links[$index].title" />
-        </label>
-        <label>Url:
-          <input type="url" ng-model="collection.links[$index].url" />
-        </label>
-        <label>Description: 
-          <input type="text" ng-model="collection.links[$index].description" />
-        </label>
-        <label>Remove:
-          <input type="checkbox" ng-click="toggleRemove($index)">
-        </label>
+      <div class="create-collection-name clearfix">
+        <div class="create-collection-name-input">You cannot edit this, its not your collection. Fork it instead.</div>
       </div>
-      <button type="button" ng-click="addLink()">Add Link</button>
-      <button type="submit">Sumbit Changes</button>
-    </form>
 
+    </div>
+  </div>
+  <div class="createCollection" ng-if="editable">
+    <form name="create" class="createCollectionForm" ng-submit="submitCollectionEdit()">
+
+      <div class="create-collection-name clearfix">
+        <input class="create-collection-name-input" placeholder="Enter Collection Name" name="title" type="text" ng-model="collection.title">
+      </div>
+      <div class="create-collection clearfix">
+        <textarea class="collection-description" placeholder="Enter Collection Description" name="description" ng-model="collection.description"></textarea>
+      </div>
+      <div class="single--new-link" ng-repeat="link in collection.links">
+        <div class="create-link clearfix">
+          <div class="scnshot-container clearfix">
+            <div class="box"></div>
+            <img class="screenshot" src="http://api.page2images.com/directlink?p2i_url={{ collection.links[$index].url }}&p2i_device=6&p2i_screen=1024x768&p2i_size=92x92&p2i_key=d38c9500ca1d4a51">
+          </div>
+          <div class="link-inputs clearfix">
+            <input class="link-title" placeholder="Link Title" type="text" ng-model="collection.links[$index].title">
+            <input class="link-url" placeholder="Link Url" type="text" ng-model="collection.links[$index].url">
+            <textarea class="link-description" placeholder="Enter link description" ng-model="collection.links[$index].description"></textarea>
+            <label>Remove:
+              <input type="checkbox" ng-click="toggleRemove($index)">
+            </label>
+          </div>
+        </div>
+      </div>
+      <button class="create-another-link-btn" type="button" ng-click="addLink()">Add Another Link</button>
+      <button class="create-collection-btn" type="submit">Submit Changes</button>
+
+    </form>
   </div>
 </div>

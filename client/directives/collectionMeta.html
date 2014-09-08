@@ -10,13 +10,10 @@
       </p>
       <p class="vote-label"></p>
     </div>
-    <p class="username username-3">
-      <span>{{ collection.user.givenName }}</span>
-    </p>
   </div>
   <div class="collection-text collection-text-2 clearfix">
     <p class="collection-title">
-      <a ng-href="#/{{ collection.url }}">{{ collection.title }}</a>
+      <a ng-href="#/{{ collection.url }}">{{ collection.title }} <span class="collection-username"><i> by {{ collection.user.givenName }}</span></i></a>
     </p>
     <p class="collection-description">{{ collection.description }}</p>
   </div>
