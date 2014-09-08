@@ -1,17 +1,21 @@
 <div ng-controller="singleCollectionController">
-  <h2 class="text-primary">{{ collection.title }}</h2>
+  <h2 class="text-primary">{{ collection.title }}    <span class="label label-default">{{ collection.stars }} people like this</span></h2>
   <p><i>Creator: {{ collection.user.givenName }}</i></p>
+    <button class="btn btn-info" ng-if="!isUser" ng-click="clone()"><b>Clone</b></button>
+    <button class="btn btn-success" ng-click="upVote()" ng-if="notYetUpvoted"><b>Upvote</b></button>
+  <p ng-if="!notYetUpvoted">You have liked this collection!</p>
   <br>
-  <h4>Collection Description: </h4>
+  <h3><b>Collection Description: </b></h3>
   <p>{{ collection.description }}</p>
-  <a ng-href="#/{{ collection.url }}/edit" ng-if="isUser">Edit</a>
-  <!-- Edit should be a button -->
-  <button ng-if="!isUser" ng-click="clone()">Clone</button>
-  <p>{{ collection.stars }}</p>
-  <button ng-click="upVote()" ng-if="notYetUpvoted">Upvote</button>
-  <p ng-if="!notYetUpvoted"><b>You have liked this collection!<b/></p>
-  <div class="collectionLinks" ng-repeat="link in collection.links">
-    <h3><a ng-href="{{ link.url }}">{{ link.title }}</a></h3>
-    {{ link.description }}
-  </div>
+
+  <p><a ng-href="#/{{ collection.url }}/edit" ng-if="isUser">Edit</a></p>
+  <h3><b>Links: </b></h3>
+  <ol>
+    <div class="collectionLinks" ng-repeat="link in collection.links">
+        <li><h4><a ng-href="{{ link.url }}">{{ link.title }}</a>
+        </h4>
+          <p>{{ link.description }}</p>
+        </li>
+    </div>
+  </ol>
 </div>
