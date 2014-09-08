@@ -1,0 +1,32 @@
+<div ng-controller="createCollectionController">
+  <div class="notLoggedIn" ng-if="!loggedIn">
+    <h2>Log in to create a collection.</h2>
+  </div>
+  <div class="createCollection" ng-if="loggedIn">
+    <form name="create" class="createCollectionForm" ng-submit="submitCreate()">
+
+      <div class="create-collection-name clearfix">
+        <input class="create-collection-name-input" placeholder="Enter Collection Name" name="title" type="text" ng-model="collection.title">
+      </div>
+      <div class="create-collection clearfix">
+        <textarea class="collection-description" placeholder="Enter Collection Description" name="description" ng-model="collection.description"></textarea>
+      </div>
+      <div class="single--new-link" ng-repeat="link in collection.links">
+        <div class="create-link clearfix">
+          <div class="scnshot-container clearfix">
+            <div class="box"></div>
+            <img class="screenshot" src="http://api.page2images.com/directlink?p2i_url={{ collection.links[$index].url }}&p2i_device=6&p2i_screen=1024x768&p2i_size=92x92&p2i_key=d38c9500ca1d4a51">
+          </div>
+          <div class="link-inputs clearfix">
+            <input class="link-title" placeholder="Link Title" type="text" ng-model="collection.links[$index].title">
+            <input class="link-url" placeholder="Link Url" type="text" ng-model="collection.links[$index].url">
+            <textarea class="link-description" placeholder="Enter link description" ng-model="collection.links[$index].description"></textarea>
+          </div>
+        </div>
+      </div>
+      <button class="create-another-link-btn" ng-click="addLink()">Add Another Link</button>
+      <button class="create-collection-btn" name="submit" type="submit">Create Collection</button>
+
+    </form>
+  </div>
+</div>

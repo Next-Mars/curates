@@ -1,0 +1,11 @@
+<div ng-controller="collectionsListController">
+  <div class="collections-search clearfix">
+    <button class="_button">Search</button>
+    <input class="_input" type="text" ng-model="query">
+  </div>
+  <div ng-controller="collectionsListController" class="single-collection single-collection-2 clearfix">
+    <div class="collection clearfix">
+      <collection-meta ng-repeat="collection in listData | filter:query | orderBy:predicate" collection="collection" /></collection-meta>
+    </div>
+  </div>
+</div>
