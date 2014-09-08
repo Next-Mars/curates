@@ -17,14 +17,15 @@
     <script src="modules/createCollection/createCollection.js"></script>
     <div class="row">
       <h1><a ng-href='/'>Curates!</a></h1>
-    </div>
-     <!--  <div class="col-md-8"></div> -->
-      <!-- above is empty div to float usermanagement to right -->
+      <div class="col-md-8"></div>
       <div ng-controller="userManagementController">
         <user-management />
       </div>
     </div>
     <hr>
-    <div ui-view></div>
+    <div class="row">
+      <div ui-view></div>
+    </div>
+  </div>
 </body>
 </html>
